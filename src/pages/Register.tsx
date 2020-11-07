@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setFormValueA, setFormMessageA, setValidFieldA } from '../actions';
+import {
+  setFormValueA,
+  setFormMessageA,
+  setValidFieldA,
+  notifyA,
+} from '../actions';
 import {
   FormMessagesState,
   RegisterProps,
@@ -21,14 +26,41 @@ import isValidEmail from '../utils';
 
 const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element => {
   const {
-    setValue, setFormMsg, setValidField, email, name, password, passwordConf, formMessages,
+    notify, setValue, setFormMsg, setValidField, email, name, password, passwordConf, formMessages,
   } = props;
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    // Verify in frontend
-    // Send to backend(also verifies)
-    // clear state
+    const { validEmail, validPassword, validPasswordConf } = formMessages;
+    if (!validEmail || !validPassword || !validPasswordConf) {
+      notify('Check required fields');
+      return;
+    }
+    fetch('http://localhost:8000/api/register', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name, email, password, passwordConf,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 409) {
+          notify('Email is already in use');
+          return;
+        }
+        if (res.status === 400) {
+          notify('Check required fields');
+          return;
+        }
+        if (res.status === 201) {
+          window.location.href = '/login';
+          return;
+        }
+        notify('Internal server error. Try again later');
+      })
+      .catch(() => notify('Internal server error. Try again later'));
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,4 +173,5 @@ export default connect(mapStateToProps, {
   setValue: setFormValueA,
   setValidField: setValidFieldA,
   setFormMsg: setFormMessageA,
+  notify: notifyA,
 })(Register);

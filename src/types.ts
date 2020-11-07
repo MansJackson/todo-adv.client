@@ -16,6 +16,7 @@ export const SET_PASSWORD_MESSAGE = 'SET_PASSWORD_MESSAGE';
 export const SET_PASSWORD_CONF_MESSAGE = 'SET_PASSWORD_CONF_MESSAGE';
 
 export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN';
+export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_NOTIFICATION_TEXT = 'SET_NOTIFICATION_TEXT';
 export const SET_NOTIFICATION_SHOW = 'SET_NOTIFICATION_SHOW';
 
@@ -47,6 +48,11 @@ export type NotificationAction = {
   show: boolean;
 };
 
+export type LoadingAction = {
+  type: string;
+  payload: boolean;
+};
+
 // States
 export type RootState = {
   login: LoginState;
@@ -54,6 +60,7 @@ export type RootState = {
   formMessages: FormMessagesState;
   isLoggedIn: boolean;
   notification: NotificationState;
+  isLoading: boolean;
 };
 
 export type LoginState = {
@@ -100,9 +107,14 @@ export type RegisterProps = {
   setValue: (type: string, payload: string) => void;
   setValidField: (type: string, payload: boolean) => void;
   setFormMsg: (type: string, payload: string) => void;
+  notify: (message: string) => void;
 };
 
 export type RouteProps = {
   isLoggedIn: boolean;
   notification: NotificationState;
+  isLoading: boolean;
+  setIsLoading: (payload: boolean) => void;
+  setIsLoggedIn: (payload: boolean) => void;
+  notify: (message: string) => void;
 };

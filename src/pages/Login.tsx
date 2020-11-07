@@ -23,6 +23,10 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
     console.log(email, password);
     fetch('http://localhost:8000/api/login', {
       method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     })
       .then((res) => {

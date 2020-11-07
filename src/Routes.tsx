@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   BrowserRouter, Switch, Route, Redirect,
@@ -8,9 +8,34 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import { notifyA, setIsLoadingA, setIsLoggedInA } from './actions';
+import LoadingPage from './pages/LoadingPage';
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
-  const { isLoggedIn, notification } = props;
+  const {
+    setIsLoading, setIsLoggedIn, isLoggedIn, notification, isLoading,
+  } = props;
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('http://localhost:8000/api/valid_cookie', {
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setIsLoggedIn(true);
+        } else setIsLoggedIn(false);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+        setIsLoading(false);
+      });
+  }, [setIsLoading, setIsLoggedIn]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <BrowserRouter>
@@ -34,6 +59,11 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
 const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.isLoggedIn,
   notification: state.notification,
+  isLoading: state.isLoading,
 });
 
-export default connect(mapStateToProps, {})(Routes);
+export default connect(mapStateToProps, {
+  setIsLoading: setIsLoadingA,
+  setIsLoggedIn: setIsLoggedInA,
+  notify: notifyA,
+})(Routes);

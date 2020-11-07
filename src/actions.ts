@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import {
+  SET_IS_LOADING,
   SET_IS_LOGGED_IN, SET_NOTIFICATION_SHOW, SET_NOTIFICATION_TEXT,
 } from './types';
 
@@ -44,6 +45,13 @@ export const notifyA = (message: string) => (dispatch: Dispatch): void => {
 export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void => {
   dispatch({
     type: SET_IS_LOGGED_IN,
+    payload,
+  });
+};
+
+export const setIsLoadingA = (payload: boolean) => (dispatch: Dispatch): void => {
+  dispatch({
+    type: SET_IS_LOADING,
     payload,
   });
 };

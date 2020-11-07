@@ -7,6 +7,7 @@ import {
   FormMessageAction,
   NotificationAction,
   LoggedInAction,
+  LoadingAction,
   SET_LOGIN_EMAIL,
   SET_LOGIN_PASSWORD,
   SET_REGISTER_EMAIL,
@@ -22,6 +23,7 @@ import {
   SET_IS_LOGGED_IN,
   SET_NOTIFICATION_TEXT,
   SET_NOTIFICATION_SHOW,
+  SET_IS_LOADING,
 } from './types';
 
 const defaultNotificationState = { text: '', show: false };
@@ -106,10 +108,19 @@ const notificationReducer = (state = defaultNotificationState, action: Notificat
   }
 };
 
+const isLoadingReducer = (state = true, action: LoadingAction) => {
+  switch (action.type) {
+    case SET_IS_LOADING:
+      return action.payload;
+    default: return state;
+  }
+};
+
 export default combineReducers({
   login: loginReducer,
   register: registerReducer,
   formMessages: formMessagesReducer,
   isLoggedIn: loggedInReducer,
   notification: notificationReducer,
+  isLoading: isLoadingReducer,
 });
