@@ -5,6 +5,8 @@ import {
   LoginAction,
   RegisterAction,
   FormMessageAction,
+  NotificationAction,
+  LoggedInAction,
   SET_LOGIN_EMAIL,
   SET_LOGIN_PASSWORD,
   SET_REGISTER_EMAIL,
@@ -17,14 +19,26 @@ import {
   SET_VALID_EMAIL,
   SET_VALID_PASSWORD,
   SET_VALID_PASSWORD_CONF,
+  SET_IS_LOGGED_IN,
+  SET_NOTIFICATION_TEXT,
+  SET_NOTIFICATION_SHOW,
 } from './types';
 
+const defaultNotificationState = { text: '', show: false };
 const defaultLoginState = { email: '', password: '' };
 const defaultRegisterState = {
-  name: '', email: '', password: '', passwordConf: '',
+  name: '',
+  email: '',
+  password: '',
+  passwordConf: '',
 };
 const defaultFormMessageState = {
-  emailMsg: '', validEmail: true, passwordMsg: '', validPassword: true, passwordConfMsg: '', validPasswordConf: true,
+  emailMsg: '',
+  passwordMsg: '',
+  passwordConfMsg: '',
+  validEmail: true,
+  validPassword: true,
+  validPasswordConf: true,
 };
 
 const formMessagesReducer = (state = defaultFormMessageState, action: FormMessageAction) => {
@@ -72,8 +86,30 @@ const registerReducer = (state = defaultRegisterState, action: RegisterAction): 
   }
 };
 
+const loggedInReducer = (state = false, action: LoggedInAction): boolean => {
+  switch (action.type) {
+    case SET_IS_LOGGED_IN:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const notificationReducer = (state = defaultNotificationState, action: NotificationAction) => {
+  switch (action.type) {
+    case SET_NOTIFICATION_TEXT:
+      return { ...state, text: action.text };
+    case SET_NOTIFICATION_SHOW:
+      return { ...state, show: action.show };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   login: loginReducer,
   register: registerReducer,
   formMessages: formMessagesReducer,
+  isLoggedIn: loggedInReducer,
+  notification: notificationReducer,
 });

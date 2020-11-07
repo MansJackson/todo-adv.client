@@ -33,26 +33,43 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(SET_REGISTER_EMAIL, e.target.value);
-    if (!isValidEmail(email)) {
-      setValidField(SET_VALID_EMAIL, false);
-      setFormMsg(SET_EMAIL_MESSAGE, 'Email is invalid');
-    } else {
+    if (isValidEmail(email)) {
       setValidField(SET_VALID_EMAIL, true);
+      return;
     }
+    setValidField(SET_VALID_EMAIL, false);
+    setFormMsg(SET_EMAIL_MESSAGE, 'Email is invalid');
+  };
+
+  const handleEmailBlur = () => {
+    if (email === '') {
+      setValidField(SET_VALID_EMAIL, true);
+      return;
+    }
+    fetch('http://localhost:3000/api/email_exists')
+      .then((res) => {
+        if (res.status === 409) {
+          setValidField(SET_VALID_EMAIL, false);
+          setFormMsg(SET_EMAIL_MESSAGE, 'Email already exists');
+          return;
+        }
+        if (res.status === 200) setValidField(SET_VALID_EMAIL, true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(SET_REGISTER_PASSWORD, e.target.value);
-    if (password.length < 8) {
-      setFormMsg(SET_PASSWORD_MESSAGE, 'Password must be atleast 8 characters');
-      setValidField(SET_VALID_PASSWORD, false);
-    } else {
+    if (password.length >= 8 || password === '') {
       setValidField(SET_VALID_PASSWORD, true);
+      return;
     }
+    setFormMsg(SET_PASSWORD_MESSAGE, 'Password must be atleast 8 characters');
+    setValidField(SET_VALID_PASSWORD, false);
   };
 
   const handlePasswordConfBlur = () => {
-    if (passwordConf !== password) {
+    if (passwordConf !== password && passwordConf !== '' && formMessages.validPassword) {
       setFormMsg(SET_PASSWORD_CONF_MESSAGE, 'Passwords do not match');
       setValidField(SET_VALID_PASSWORD_CONF, false);
     } else {
@@ -67,6 +84,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         value={name}
         name="name"
         className=""
+        onBlur={handleEmailBlur}
         onChange={(e) => setValue(SET_REGISTER_NAME, e.target.value)}
       />
 

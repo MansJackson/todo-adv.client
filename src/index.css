@@ -6,3 +6,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.show {
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+}
