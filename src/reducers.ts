@@ -1,19 +1,49 @@
 import { combineReducers } from 'redux';
 import {
-  LoginAction,
   LoginState,
   RegisterState,
+  LoginAction,
+  RegisterAction,
+  FormMessageAction,
   SET_LOGIN_EMAIL,
   SET_LOGIN_PASSWORD,
   SET_REGISTER_EMAIL,
   SET_REGISTER_PASSWORD,
   SET_REGISTER_NAME,
   SET_REGISTER_PASSWORD_CONF,
+  SET_EMAIL_MESSAGE,
+  SET_PASSWORD_MESSAGE,
+  SET_PASSWORD_CONF_MESSAGE,
+  SET_VALID_EMAIL,
+  SET_VALID_PASSWORD,
+  SET_VALID_PASSWORD_CONF,
 } from './types';
 
 const defaultLoginState = { email: '', password: '' };
 const defaultRegisterState = {
   name: '', email: '', password: '', passwordConf: '',
+};
+const defaultFormMessageState = {
+  emailMsg: '', validEmail: true, passwordMsg: '', validPassword: true, passwordConfMsg: '', validPasswordConf: true,
+};
+
+const formMessagesReducer = (state = defaultFormMessageState, action: FormMessageAction) => {
+  switch (action.type) {
+    case SET_EMAIL_MESSAGE:
+      return { ...state, emailMsg: action.message! };
+    case SET_PASSWORD_MESSAGE:
+      return { ...state, passwordMsg: action.message! };
+    case SET_PASSWORD_CONF_MESSAGE:
+      return { ...state, passwordConfMsg: action.message! };
+    case SET_VALID_EMAIL:
+      return { ...state, validEmail: action.valid! };
+    case SET_VALID_PASSWORD:
+      return { ...state, validPassword: action.valid! };
+    case SET_VALID_PASSWORD_CONF:
+      return { ...state, validPasswordConf: action.valid! };
+    default:
+      return state;
+  }
 };
 
 const loginReducer = (state = defaultLoginState, action: LoginAction): LoginState => {
@@ -27,7 +57,7 @@ const loginReducer = (state = defaultLoginState, action: LoginAction): LoginStat
   }
 };
 
-const registerReducer = (state = defaultRegisterState, action: LoginAction): RegisterState => {
+const registerReducer = (state = defaultRegisterState, action: RegisterAction): RegisterState => {
   switch (action.type) {
     case SET_REGISTER_NAME:
       return { ...state, name: action.payload };
@@ -43,6 +73,7 @@ const registerReducer = (state = defaultRegisterState, action: LoginAction): Reg
 };
 
 export default combineReducers({
-  loginReducer,
-  registerReducer,
+  login: loginReducer,
+  register: registerReducer,
+  formMessages: formMessagesReducer,
 });

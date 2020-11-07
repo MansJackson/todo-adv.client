@@ -5,11 +5,17 @@ import rootReducer from './reducers';
 const initialState = {};
 
 const middleware = [thunk];
+// @ts-ignore
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compos
 
 const store = createStore(
   rootReducer,
   initialState,
-  applyMiddleware(...middleware),
+  // eslint-disable-next-line
+  composeEnhancers(
+    applyMiddleware(...middleware),
+  ),
 );
 
 export default store;

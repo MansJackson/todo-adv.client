@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setFormValueA } from '../actions';
 import {
-  LoginProps, LoginState, RootState, SET_LOGIN_EMAIL, SET_LOGIN_PASSWORD,
+  LoginProps,
+  LoginState,
+  RootState,
+  SET_LOGIN_EMAIL,
+  SET_LOGIN_PASSWORD,
 } from '../types';
-import { setFormValue } from '../actions';
 
 const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   const { setValue, email, password } = props;
@@ -19,14 +23,13 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
     <form onSubmit={handleSubmit}>
       <input
         value={email}
-        name="login_email"
         type="text"
         className="login_email"
         onChange={(e) => setValue(SET_LOGIN_EMAIL, e.target.value)}
       />
+
       <input
         value={password}
-        name="login_email"
         type="password"
         className="login_password"
         onChange={(e) => setValue(SET_LOGIN_PASSWORD, e.target.value)}
@@ -44,6 +47,6 @@ const mapStateToProps = (state: RootState): LoginState => ({
 export default connect(
   mapStateToProps,
   {
-    setValue: setFormValue,
+    setValue: setFormValueA,
   },
 )(Login);
