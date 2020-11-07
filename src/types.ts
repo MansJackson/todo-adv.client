@@ -10,32 +10,32 @@ export const SET_REGISTER_PASSWORD_CONF = 'SET_REGISTER_PASSWORD_CONF';
 export type LoginAction = {
   type: string;
   payload: string;
-}
+};
 
 // States
 export type RootState = {
   login: LoginProps;
   register: RegisterProps;
-}
+};
 
 export type LoginState = {
   email: string;
   password: string;
-}
+};
 
 export type RegisterState = {
   name: string;
   email: string;
   password: string;
   passwordConf: string;
-}
+};
 
 // Props
 export type LoginProps = {
   email: string;
   password: string;
   setValue: (type: string, payload: string) => void;
-}
+};
 
 export type RegisterProps = {
   name: string;
@@ -43,4 +43,4 @@ export type RegisterProps = {
   password: string;
   passwordConf: string;
   setValue: (type: string, payload: string) => void;
-}
+};

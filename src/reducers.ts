@@ -12,33 +12,35 @@ import {
 } from './types';
 
 const defaultLoginState = { email: '', password: '' };
-const defaultRegisterState = { name: '', email: '', password: '', passwordConf: '' };
+const defaultRegisterState = {
+  name: '', email: '', password: '', passwordConf: '',
+};
 
 const loginReducer = (state = defaultLoginState, action: LoginAction): LoginState => {
   switch (action.type) {
     case SET_LOGIN_EMAIL:
-      return { ...state, email: action.payload }
+      return { ...state, email: action.payload };
     case SET_LOGIN_PASSWORD:
-      return { ...state, password: action.payload }
+      return { ...state, password: action.payload };
     default:
       return state;
   }
-}
+};
 
 const registerReducer = (state = defaultRegisterState, action: LoginAction): RegisterState => {
   switch (action.type) {
     case SET_REGISTER_NAME:
-      return { ...state, name: action.payload }
+      return { ...state, name: action.payload };
     case SET_REGISTER_EMAIL:
-      return { ...state, email: action.payload }
+      return { ...state, email: action.payload };
     case SET_REGISTER_PASSWORD:
-      return { ...state, password: action.payload }
+      return { ...state, password: action.payload };
     case SET_REGISTER_PASSWORD_CONF:
-      return { ...state, passwordConf: action.payload }
+      return { ...state, passwordConf: action.payload };
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   loginReducer,

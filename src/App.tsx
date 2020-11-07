@@ -3,11 +3,9 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
 
-function App() {
+function App(): JSX.Element {
   return (
-    <Provider store={store}>
-      
-    </Provider>
+    <Provider store={store} />
   );
 }
 
