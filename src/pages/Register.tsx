@@ -17,7 +17,7 @@ import {
   SET_VALID_PASSWORD,
   SET_VALID_PASSWORD_CONF,
 } from '../types';
-import { isValidEmail } from '../utils';
+import isValidEmail from '../utils';
 
 const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element => {
   const {
@@ -101,7 +101,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         onChange={(e) => setValue(SET_REGISTER_PASSWORD_CONF, e.target.value)}
       />
       {!formMessages.validPasswordConf
-        ? <p className="passwordConf_text">{formMessages.validPasswordConf}</p>
+        ? <p className="passwordConf_text">{formMessages.passwordConfMsg}</p>
         : null}
 
       <button type="submit" className="register_btn">Register</button>
