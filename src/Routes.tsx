@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import { notifyA, setIsLoadingA, setIsLoggedInA } from './actions';
 import LoadingPage from './pages/LoadingPage';
+import List from './pages/List';
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
@@ -18,7 +19,7 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:8000/api/valid_cookie', {
+    fetch('http://localhost:8000/auth/valid_cookie', {
       credentials: 'include',
     })
       .then((res) => {
@@ -41,13 +42,19 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {!isLoggedIn ? <Redirect to="/login" /> : <Dashboard />}
+          {!isLoggedIn ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
         </Route>
         <Route path="/login">
           {isLoggedIn ? <Redirect to="/" /> : <Login />}
         </Route>
         <Route path="/register">
           {isLoggedIn ? <Redirect to="/" /> : <Register />}
+        </Route>
+        <Route path="/dashboard">
+          {!isLoggedIn ? <Redirect to="/" /> : <Dashboard />}
+        </Route>
+        <Route path="/list/:id">
+          {!isLoggedIn ? <Redirect to="/" /> : <List />}
         </Route>
         <Route component={NotFound} />
       </Switch>

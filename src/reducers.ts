@@ -7,6 +7,7 @@ import {
   FormMessageAction,
   NotificationAction,
   LoggedInAction,
+  ListsAction,
   LoadingAction,
   SET_LOGIN_EMAIL,
   SET_LOGIN_PASSWORD,
@@ -24,6 +25,8 @@ import {
   SET_NOTIFICATION_TEXT,
   SET_NOTIFICATION_SHOW,
   SET_IS_LOADING,
+  SET_OWNED_LISTS,
+  SET_SHARED_LISTS,
 } from './types';
 
 const defaultNotificationState = { text: '', show: false };
@@ -41,6 +44,10 @@ const defaultFormMessageState = {
   validEmail: true,
   validPassword: true,
   validPasswordConf: true,
+};
+const defaultListState = {
+  ownedLists: [{}],
+  sharedLists: [{}],
 };
 
 const formMessagesReducer = (state = defaultFormMessageState, action: FormMessageAction) => {
@@ -116,6 +123,17 @@ const isLoadingReducer = (state = true, action: LoadingAction) => {
   }
 };
 
+const listsReducer = (state = defaultListState, action: ListsAction) => {
+  switch (action.type) {
+    case SET_OWNED_LISTS:
+      return { ...state, owned: action.owned };
+    case SET_SHARED_LISTS:
+      return { ...state, shared: action.shared };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   login: loginReducer,
   register: registerReducer,
@@ -123,4 +141,5 @@ export default combineReducers({
   isLoggedIn: loggedInReducer,
   notification: notificationReducer,
   isLoading: isLoadingReducer,
+  lists: listsReducer,
 });

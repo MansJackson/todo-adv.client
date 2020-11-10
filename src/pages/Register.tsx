@@ -36,7 +36,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
       notify('Check required fields');
       return;
     }
-    fetch('http://localhost:8000/api/register', {
+    fetch('http://localhost:8000/auth/register', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

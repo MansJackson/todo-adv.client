@@ -20,6 +20,9 @@ export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_NOTIFICATION_TEXT = 'SET_NOTIFICATION_TEXT';
 export const SET_NOTIFICATION_SHOW = 'SET_NOTIFICATION_SHOW';
 
+export const SET_OWNED_LISTS = 'SET_OWNED_LISTS';
+export const SET_SHARED_LISTS = 'SET_SHARED_LISTS';
+
 // Actions
 export type LoginAction = {
   type: string;
@@ -53,6 +56,12 @@ export type LoadingAction = {
   payload: boolean;
 };
 
+export type ListsAction = {
+  type: string;
+  owned: List[];
+  shared: List[];
+};
+
 // States
 export type RootState = {
   login: LoginState;
@@ -61,6 +70,7 @@ export type RootState = {
   isLoggedIn: boolean;
   notification: NotificationState;
   isLoading: boolean;
+  lists: ListsState;
 };
 
 export type LoginState = {
@@ -87,6 +97,11 @@ export type FormMessagesState = {
 export type NotificationState = {
   show: boolean;
   text: string;
+};
+
+export type ListsState = {
+  owned: List[],
+  shared: List[],
 };
 
 // Props
@@ -117,4 +132,35 @@ export type RouteProps = {
   setIsLoading: (payload: boolean) => void;
   setIsLoggedIn: (payload: boolean) => void;
   notify: (message: string) => void;
+};
+
+export type DashboardProps = {
+  owned: List[];
+  shared: List[];
+  setShared: (shared: List[]) => void;
+  setOwned: (owned: List[]) => void;
+  notify: (message: string) => void;
+};
+
+export type ModalOwnProps = {
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+};
+
+export type ListProps = {
+  isLoading: boolean;
+  setIsLoading: (payload: boolean) => void;
+};
+
+export type ListSummaryOwnProps = {
+  data: List;
+};
+
+// Otther
+export type List = {
+  id: string;
+  title: string;
+  owner: string;
+  editors: string[];
+  items: string[];
 };

@@ -1,0 +1,26 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(114, 114, 114, 0.521);
+  z-index: 100;
+}
+
+.modal_window {
+  position: relative;
+  z-index: 110;
+  padding: 2rem;
+  background-color: whitesmoke;
+}
+
+.modal-open {
+  display: flex;
+}
+
+.modal-close {
+  display: none;
+}
