@@ -1,8 +1,14 @@
 import { Dispatch } from 'redux';
+import { io, Socket } from 'socket.io-client';
 import {
+  CLEAR_SOCKET,
   List,
   SET_IS_LOADING,
-  SET_IS_LOGGED_IN, SET_NOTIFICATION_SHOW, SET_NOTIFICATION_TEXT, SET_OWNED_LISTS, SET_SHARED_LISTS,
+  SET_IS_LOGGED_IN,
+  SET_NOTIFICATION_SHOW,
+  SET_NOTIFICATION_TEXT,
+  SET_OWNED_LISTS,
+  SET_SHARED_LISTS, SET_SOCKET,
 } from './types';
 
 export const setFormValueA = (type: string, payload: string) => (dispatch: Dispatch): void => {
@@ -68,5 +74,20 @@ export const setSharedListA = (shared: List[]) => (dispatch: Dispatch): void => 
   dispatch({
     type: SET_SHARED_LISTS,
     shared,
+  });
+};
+
+export const connectSocketA = () => (dispatch: Dispatch): void => {
+  const socket = io('http://localhost:8000');
+  dispatch({
+    type: SET_SOCKET,
+    socket,
+  });
+};
+
+export const closeSocketA = (socket: Socket) => (dispatch: Dispatch): void => {
+  socket.close();
+  dispatch({
+    type: CLEAR_SOCKET,
   });
 };

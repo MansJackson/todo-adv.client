@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { notifyA, setFormValueA, setIsLoggedInA } from '../actions';
+import Navbar from '../components/Navbar';
 import {
   LoginProps,
   LoginState,
@@ -20,7 +21,6 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    console.log(email, password);
     fetch('http://localhost:8000/auth/login', {
       method: 'POST',
       headers: {
@@ -48,22 +48,25 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={email}
-        type="text"
-        className="login_email"
-        onChange={(e) => setValue(SET_LOGIN_EMAIL, e.target.value)}
-      />
+    <>
+      <Navbar />
+      <form onSubmit={handleSubmit}>
+        <input
+          value={email}
+          type="text"
+          className="login_email"
+          onChange={(e) => setValue(SET_LOGIN_EMAIL, e.target.value)}
+        />
 
-      <input
-        value={password}
-        type="password"
-        className="login_password"
-        onChange={(e) => setValue(SET_LOGIN_PASSWORD, e.target.value)}
-      />
-      <button type="submit" className="login_btn">Log In</button>
-    </form>
+        <input
+          value={password}
+          type="password"
+          className="login_password"
+          onChange={(e) => setValue(SET_LOGIN_PASSWORD, e.target.value)}
+        />
+        <button type="submit" className="login_btn">Log In</button>
+      </form>
+    </>
   );
 };
 

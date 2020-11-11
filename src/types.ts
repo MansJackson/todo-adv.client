@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io-client';
+
 // Action-types
 export const SET_LOGIN_EMAIL = 'SET_LOGIN_EMAIL';
 export const SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD';
@@ -23,7 +25,15 @@ export const SET_NOTIFICATION_SHOW = 'SET_NOTIFICATION_SHOW';
 export const SET_OWNED_LISTS = 'SET_OWNED_LISTS';
 export const SET_SHARED_LISTS = 'SET_SHARED_LISTS';
 
+export const SET_SOCKET = 'SET_SOCKET';
+export const CLEAR_SOCKET = 'CLEAR_SOCKET';
+
 // Actions
+export type SocketAction = {
+  type: string;
+  socket: Socket;
+};
+
 export type LoginAction = {
   type: string;
   payload: string;
@@ -71,6 +81,7 @@ export type RootState = {
   notification: NotificationState;
   isLoading: boolean;
   lists: ListsState;
+  socket: Socket;
 };
 
 export type LoginState = {
@@ -105,6 +116,11 @@ export type ListsState = {
 };
 
 // Props
+export type NavbarProps = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (payload: boolean) => void;
+};
+
 export type LoginProps = {
   email: string;
   password: string;
@@ -149,7 +165,10 @@ export type ModalOwnProps = {
 
 export type ListProps = {
   isLoading: boolean;
+  socket: Socket;
   setIsLoading: (payload: boolean) => void;
+  connectSocket: () => void;
+  closeSocket: (socket: Socket) => void;
 };
 
 export type ListSummaryOwnProps = {

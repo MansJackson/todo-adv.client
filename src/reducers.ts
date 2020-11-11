@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { Socket } from 'socket.io-client';
 import {
   LoginState,
   RegisterState,
@@ -27,6 +28,9 @@ import {
   SET_IS_LOADING,
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
+  SocketAction,
+  SET_SOCKET,
+  CLEAR_SOCKET,
 } from './types';
 
 const defaultNotificationState = { text: '', show: false };
@@ -134,6 +138,17 @@ const listsReducer = (state = defaultListState, action: ListsAction) => {
   }
 };
 
+const socketReducer = (state: null | Socket = null, action: SocketAction) => {
+  switch (action.type) {
+    case SET_SOCKET:
+      return action.socket;
+    case CLEAR_SOCKET:
+      return null;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   login: loginReducer,
   register: registerReducer,
@@ -142,4 +157,5 @@ export default combineReducers({
   notification: notificationReducer,
   isLoading: isLoadingReducer,
   lists: listsReducer,
+  socket: socketReducer,
 });

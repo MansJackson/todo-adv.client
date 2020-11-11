@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { notifyA, setOwnedListA, setSharedListA } from '../actions';
 import ListSummary from '../components/ListSummary';
 import Modal from '../components/Modal';
+import Navbar from '../components/Navbar';
 import { DashboardProps, List, RootState } from '../types';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
@@ -54,6 +55,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
 
   return (
     <>
+      <Navbar />
       <div>
         <h1>Dashboard</h1>
         <button type="button" onClick={() => setModalOpen(true)}>+ New List</button>
