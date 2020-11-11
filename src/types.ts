@@ -153,6 +153,7 @@ export type RouteProps = {
 export type DashboardProps = {
   owned: List[];
   shared: List[];
+  socket: Socket;
   getLists: (cb: Callback) => void;
   postList: (title: string, cb: Callback) => void;
   notify: (message: string) => void;
@@ -172,17 +173,27 @@ export type ListProps = {
   notify: (message: string) => void;
 };
 
+export type ListSummarProps = {
+  socket: Socket;
+};
+
 export type ListSummaryOwnProps = {
   data: List;
 };
 
-// Otther
+// Other
 export type List = {
   id: string;
   title: string;
   owner: string;
-  editors: string[];
-  items: string[];
+  editors: { id: string, initials: string }[];
+  items: ListItem[];
+};
+
+export type ListItem = {
+  id: string;
+  completed: boolean;
+  text: string;
 };
 
 export type Callback = (err: Error | undefined, data: any | undefined) => void;

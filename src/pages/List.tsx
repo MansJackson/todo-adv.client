@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { setIsLoadingA, getListA, notifyA } from '../actions';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
-import socketConfig from '../socketConfig';
 import { List, ListProps, RootState } from '../types';
 import NotFound from './NotFound';
 
@@ -12,7 +11,6 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [listData, setListData] = useState<List | null>(null);
-  const [error, setError] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [itemText, setItemText] = useState('');
 
@@ -21,17 +19,21 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   useEffect(() => {
     setIsLoading(true);
     getList(id, (err, data) => {
-      if (err) {
-        console.log(err.message);
-        setError(true);
-      }
+      if (err) notify(err.message);
       if (data) {
         setListData(data);
 
         socket.emit('joinRoom', id);
+
         socket.on('notification', (msg: string) => {
-          console.log(msg);
           notify(msg);
+        });
+
+        socket.on('updateList', () => {
+          getList(id, (err2, data2) => {
+            if (err2) notify(err2.message);
+            if (data2) setListData(data2);
+          });
         });
       }
       setIsLoading(false);
@@ -42,12 +44,13 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error || !listData) return <NotFound />;
+  if (!listData) return <NotFound />;
 
   const { title, items } = listData;
 
-  const addItem = () => {
-    // emit request with socket
+  const addItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    socket.emit('addItem', id, itemText);
   };
 
   return (
@@ -60,7 +63,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
         </header>
         <section>
           {items && items.length
-            ? items.map((el) => <p>{el}</p>)
+            ? items.map((el) => <p key={el.id}>{el.text}</p>)
             : <p>no items yet</p>}
         </section>
       </div>

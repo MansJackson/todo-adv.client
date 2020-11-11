@@ -11,7 +11,7 @@ import { DashboardProps, RootState } from '../types';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
   const {
-    owned, shared, getLists, postList, notify, connectSocket,
+    owned, shared, socket, getLists, postList, notify, connectSocket,
   } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,10 +32,21 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
 
   useEffect(() => {
     getLists((err) => {
-      if (err) notify('Could not fetch lists, try again later'); // Something went wrong
-      else connectSocket();
+      if (err) {
+        notify(err.message);
+      } else connectSocket();
     });
   }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('updateLists', () => {
+        getLists((err) => {
+          if (err) notify(err.message);
+        });
+      });
+    }
+  }, [socket]);
 
   return (
     <>
@@ -72,6 +83,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
 const mapStateToProps = (state: RootState) => ({
   owned: state.lists.owned,
   shared: state.lists.shared,
+  socket: state.socket,
 });
 
 export default connect(mapStateToProps, {

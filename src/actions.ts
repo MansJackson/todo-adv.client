@@ -79,7 +79,32 @@ export const setSharedListA = (shared: List[]) => (dispatch: Dispatch): void => 
 };
 
 export const connectSocketA = () => (dispatch: Dispatch): void => {
-  const socket = io('http://localhost:8000');
+  const socket = io('http://localhost:8000', {
+    transportOptions: {
+      polling: {
+        extraHeaders: {
+          cookies: document.cookie,
+        },
+      },
+    },
+  });
+  socket.on('notification', (message: string) => {
+    dispatch({
+      type: SET_NOTIFICATION_TEXT,
+      text: message,
+    });
+    dispatch({
+      type: SET_NOTIFICATION_SHOW,
+      show: true,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: SET_NOTIFICATION_SHOW,
+        show: false,
+      });
+    }, 5000);
+  });
+
   dispatch({
     type: SET_SOCKET,
     socket,
@@ -93,10 +118,13 @@ export const closeSocketA = (socket: Socket) => (dispatch: Dispatch): void => {
   });
 };
 
-export const getListsA = (cb: Callback) => (dispatch: Dispatch) => {
+export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
   fetch('http://localhost:8000/api/lists', { credentials: 'include' })
     .then((res) => {
-      if (res.status === 204) cb(new Error('No data'), undefined);
+      if (res.status === 204) {
+        cb(new Error('No data'), undefined);
+        return false;
+      }
       return res.json();
     })
     .then((data: { owned: List[], shared: List[] } | false) => {
@@ -114,10 +142,12 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch) => {
         cb(undefined, 'success');
       }
     })
-    .catch((err: Error) => cb(err, undefined));
+    .catch((err: Error) => {
+      cb(err, undefined);
+    });
 };
 
-export const getListA = (id: string, cb: Callback) => (dispatch: Dispatch) => {
+export const getListA = (id: string, cb: Callback): void => {
   fetch(`http://localhost:8000/api/lists/${id}`, { credentials: 'include' })
     .then((res) => {
       if (res.status === 200) return res.json();
@@ -132,7 +162,7 @@ export const getListA = (id: string, cb: Callback) => (dispatch: Dispatch) => {
     });
 };
 
-export const postListA = (title: string, cb: Callback) => (dispatch: Dispatch) => {
+export const postListA = (title: string, cb: Callback): void => {
   fetch('http://localhost:8000/api/lists', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -146,7 +176,11 @@ export const postListA = (title: string, cb: Callback) => (dispatch: Dispatch) =
     .catch((err) => cb(err, undefined));
 };
 
-export const loginA = (email: string, password: string, cb: Callback) => (dispatch: Dispatch) => {
+export const loginA = (
+  email: string,
+  password: string,
+  cb: Callback,
+) => (dispatch: Dispatch): void => {
   fetch('http://localhost:8000/auth/login', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -172,7 +206,7 @@ export const loginA = (email: string, password: string, cb: Callback) => (dispat
       }
       cb(new Error('Internal server error'), undefined);
     })
-    .catch((err: Error) => {
+    .catch(() => {
       cb(new Error('Internal server error'), undefined);
     });
 };
