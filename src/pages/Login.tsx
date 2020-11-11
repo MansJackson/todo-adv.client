@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { notifyA, setFormValueA, setIsLoggedInA } from '../actions';
+import { loginA, notifyA, setFormValueA } from '../actions';
 import Navbar from '../components/Navbar';
 import {
   LoginProps,
@@ -14,37 +14,16 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   const {
     setValue,
     notify,
-    setIsLoggedIn,
+    login,
     email,
     password,
   } = props;
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/login', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          notify('Invalid Credentials');
-          return;
-        }
-        if (res.status === 404) {
-          notify('Something went wrong. Try again later');
-          return;
-        }
-        if (res.status === 200) {
-          setIsLoggedIn(true);
-          return;
-        }
-        notify('Internal server error');
-      })
-      .catch((err: Error) => notify(err.message));
+    login(email, password, (err) => {
+      if (err) notify(err.message);
+    });
   };
 
   return (
@@ -75,11 +54,8 @@ const mapStateToProps = (state: RootState): LoginState => ({
   password: state.login.password,
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    setValue: setFormValueA,
-    notify: notifyA,
-    setIsLoggedIn: setIsLoggedInA,
-  },
-)(Login);
+export default connect(mapStateToProps, {
+  setValue: setFormValueA,
+  notify: notifyA,
+  login: loginA,
+})(Login);

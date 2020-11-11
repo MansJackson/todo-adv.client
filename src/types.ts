@@ -126,7 +126,7 @@ export type LoginProps = {
   password: string;
   setValue: (type: string, payload: string) => void;
   notify: (message: string) => void;
-  setIsLoggedIn: (payload: boolean) => void;
+  login: (email: string, password: string, cb: Callback) => void;
 };
 
 export type RegisterProps = {
@@ -153,9 +153,10 @@ export type RouteProps = {
 export type DashboardProps = {
   owned: List[];
   shared: List[];
-  setShared: (shared: List[]) => void;
-  setOwned: (owned: List[]) => void;
+  getLists: (cb: Callback) => void;
+  postList: (title: string, cb: Callback) => void;
   notify: (message: string) => void;
+  connectSocket: () => void;
 };
 
 export type ModalOwnProps = {
@@ -167,8 +168,8 @@ export type ListProps = {
   isLoading: boolean;
   socket: Socket;
   setIsLoading: (payload: boolean) => void;
-  connectSocket: () => void;
-  closeSocket: (socket: Socket) => void;
+  getList: (id: string, cb: Callback) => void;
+  notify: (message: string) => void;
 };
 
 export type ListSummaryOwnProps = {
@@ -183,3 +184,5 @@ export type List = {
   editors: string[];
   items: string[];
 };
+
+export type Callback = (err: Error | undefined, data: any | undefined) => void;

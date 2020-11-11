@@ -1,57 +1,41 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { notifyA, setOwnedListA, setSharedListA } from '../actions';
+import {
+  connectSocketA,
+  getListsA, notifyA, postListA,
+} from '../actions';
 import ListSummary from '../components/ListSummary';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
-import { DashboardProps, List, RootState } from '../types';
+import { DashboardProps, RootState } from '../types';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
   const {
-    owned, shared, setOwned, setShared, notify,
+    owned, shared, getLists, postList, notify, connectSocket,
   } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [listTitle, setListTitle] = useState('');
 
-  const getLists = useCallback(() => {
-    fetch('http://localhost:8000/api/lists', { credentials: 'include' })
-      .then((res) => {
-        if (res.status === 204) return false; // Something went wrong
-        return res.json();
-      })
-      .then((data: { owned: List[], shared: List[] } | false) => {
-        if (!data) return;
-        setOwned(data.owned);
-        setShared(data.shared);
-      })
-      .catch((err: Error) => notify(err.message));
-  }, [setOwned, setShared, notify]);
-
   const addList = (e: React.FormEvent) => {
     e.preventDefault();
     if (!listTitle || listTitle === '') return; // Can not be empty
-    fetch('http://localhost:8000/api/lists', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ title: listTitle }),
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          notify('List has been created');
-          getLists();
-        } else {
-          notify('Something went wrong');
-        }
-        setModalOpen(false);
-      })
-      .catch(() => notify('Something went wrong, try again later'));
+    postList(listTitle, (err, data) => {
+      if (err) notify('Something went wrong trying to add list');
+      if (data) {
+        getLists((err2) => {
+          if (err2) notify('Could not fetch lists');
+        });
+      }
+    });
   };
 
   useEffect(() => {
-    getLists();
-  }, [getLists]);
+    getLists((err) => {
+      if (err) notify('Could not fetch lists, try again later'); // Something went wrong
+      else connectSocket();
+    });
+  }, []);
 
   return (
     <>
@@ -91,7 +75,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 export default connect(mapStateToProps, {
-  setOwned: setOwnedListA,
-  setShared: setSharedListA,
+  getLists: getListsA,
+  postList: postListA,
   notify: notifyA,
+  connectSocket: connectSocketA,
 })(Dashboard);

@@ -116,6 +116,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         value={name}
         name="name"
         className=""
+        placeholder="Name"
         onBlur={handleEmailBlur}
         onChange={(e) => setValue(SET_REGISTER_NAME, e.target.value)}
       />
@@ -125,6 +126,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         value={email}
         name="email"
         className=""
+        placeholder="Email"
         onChange={handleEmailChange}
       />
       {!formMessages.validEmail
@@ -136,6 +138,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         value={password}
         name="password"
         className=""
+        placeholder="Password"
         onChange={handlePasswordChange}
       />
       {!formMessages.validPassword
@@ -147,6 +150,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
         value={passwordConf}
         name="passwordConf"
         className=""
+        placeholder="Confirm password"
         onBlur={handlePasswordConfBlur}
         onChange={(e) => setValue(SET_REGISTER_PASSWORD_CONF, e.target.value)}
       />

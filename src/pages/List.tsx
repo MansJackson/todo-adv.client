@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setIsLoadingA, connectSocketA, closeSocketA } from '../actions';
+import { setIsLoadingA, getListA, notifyA } from '../actions';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
+import socketConfig from '../socketConfig';
 import { List, ListProps, RootState } from '../types';
 import NotFound from './NotFound';
 
@@ -11,35 +12,37 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [listData, setListData] = useState<List | null>(null);
-  const [err, setErr] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [itemText, setItemText] = useState('');
 
-  const { socket, connectSocket, closeSocket } = props;
+  const { getList, socket, notify } = props;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/lists/${id}`, { credentials: 'include' })
-      .then((res) => {
-        if (res.status === 200) return res.json();
-        setErr(true);
-        return false;
-      }).then((data: { list: List } | false) => {
-        if (data) {
-          setListData(data.list);
-          connectSocket();
-        }
-        setIsLoading(false);
-      }).catch(() => {
-        setErr(true);
-        setIsLoading(false);
-      });
+    setIsLoading(true);
+    getList(id, (err, data) => {
+      if (err) {
+        console.log(err.message);
+        setError(true);
+      }
+      if (data) {
+        setListData(data);
+
+        socket.emit('joinRoom', id);
+        socket.on('notification', (msg: string) => {
+          console.log(msg);
+          notify(msg);
+        });
+      }
+      setIsLoading(false);
+    });
     return () => {
-      closeSocket(socket);
+      if (socket) socket.emit('leaveRoom', id);
     };
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
-  if (err || !listData) return <NotFound />;
+  if (error || !listData) return <NotFound />;
 
   const { title, items } = listData;
 
@@ -78,6 +81,6 @@ const mapStateToProps = (state: RootState) => ({
 
 export default connect(mapStateToProps, {
   setIsLoading: setIsLoadingA,
-  connectSocket: connectSocketA,
-  closeSocket: closeSocketA,
+  getList: getListA,
+  notify: notifyA,
 })(ListPage);
