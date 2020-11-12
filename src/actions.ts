@@ -3,13 +3,13 @@ import { io, Socket } from 'socket.io-client';
 import {
   Callback,
   List,
+  SET_SOCKET,
   CLEAR_SOCKET,
   SET_IS_LOGGED_IN,
   SET_NOTIFICATION_SHOW,
   SET_NOTIFICATION_TEXT,
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
-  SET_SOCKET,
 } from './types';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {

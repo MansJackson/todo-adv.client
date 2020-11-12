@@ -60,7 +60,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
           <h2>Owned</h2>
           {!owned || !owned.length
             ? <p>No lists abvailable</p>
-            : owned.map((el) => <ListSummary key={el.id} data={el} />)}
+            : owned.map((el) => <ListSummary key={el.id} data={el} owned />)}
         </div>
         <div>
           <h2>Shared</h2>

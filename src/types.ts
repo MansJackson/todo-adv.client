@@ -129,6 +129,7 @@ export type ListSummarProps = {
 
 export type ListSummaryOwnProps = {
   data: List;
+  owned?: true;
 };
 
 // Other
