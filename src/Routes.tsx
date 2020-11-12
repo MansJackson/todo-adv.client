@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   BrowserRouter, Switch, Route, Redirect,
@@ -8,14 +8,16 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import { notifyA, setIsLoadingA, setIsLoggedInA } from './actions';
+import { notifyA, setIsLoggedInA } from './actions';
 import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
-    setIsLoading, setIsLoggedIn, isLoggedIn, notification, isLoading,
+    setIsLoggedIn, isLoggedIn, notification,
   } = props;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -66,11 +68,9 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
 const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.isLoggedIn,
   notification: state.notification,
-  isLoading: state.isLoading,
 });
 
 export default connect(mapStateToProps, {
-  setIsLoading: setIsLoadingA,
   setIsLoggedIn: setIsLoggedInA,
   notify: notifyA,
 })(Routes);

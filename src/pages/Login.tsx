@@ -1,29 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { loginA, notifyA, setFormValueA } from '../actions';
+import { loginA, notifyA } from '../actions';
 import Navbar from '../components/Navbar';
-import {
-  LoginProps,
-  LoginState,
-  RootState,
-  SET_LOGIN_EMAIL,
-  SET_LOGIN_PASSWORD,
-} from '../types';
+import { LoginProps } from '../types';
 
 const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
-  const {
-    setValue,
-    notify,
-    login,
-    email,
-    password,
-  } = props;
+  const { notify, login } = props;
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     login(email, password, (err) => {
       if (err) notify(err.message);
+      else setEmail('');
     });
+    setPassword('');
   };
 
   return (
@@ -34,14 +27,14 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
           value={email}
           type="text"
           className="login_email"
-          onChange={(e) => setValue(SET_LOGIN_EMAIL, e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           value={password}
           type="password"
           className="login_password"
-          onChange={(e) => setValue(SET_LOGIN_PASSWORD, e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" className="login_btn">Log In</button>
       </form>
@@ -49,13 +42,9 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   );
 };
 
-const mapStateToProps = (state: RootState): LoginState => ({
-  email: state.login.email,
-  password: state.login.password,
-});
+const mapStateToProps = () => ({});
 
 export default connect(mapStateToProps, {
-  setValue: setFormValueA,
   notify: notifyA,
   login: loginA,
 })(Login);

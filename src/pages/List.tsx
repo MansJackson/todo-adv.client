@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setIsLoadingA, getListA, notifyA } from '../actions';
+import { getListA, notifyA } from '../actions';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
 import { List, ListProps, RootState } from '../types';
@@ -9,6 +9,7 @@ import NotFound from './NotFound';
 
 const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
+
   const [isLoading, setIsLoading] = useState(true);
   const [listData, setListData] = useState<List | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -51,6 +52,8 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const addItem = (e: React.FormEvent) => {
     e.preventDefault();
     socket.emit('addItem', id, itemText);
+    setItemText('');
+    setModalOpen(false);
   };
 
   return (
@@ -69,7 +72,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
       </div>
       <Modal isOpen={modalOpen} setOpen={setModalOpen}>
         <form onSubmit={addItem}>
-          <input type="text" onChange={(e) => setItemText(e.target.value)} />
+          <input value={itemText} type="text" onChange={(e) => setItemText(e.target.value)} />
           <button type="submit">Add</button>
         </form>
       </Modal>
@@ -78,12 +81,10 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  isLoading: state.isLoading,
   socket: state.socket,
 });
 
 export default connect(mapStateToProps, {
-  setIsLoading: setIsLoadingA,
   getList: getListA,
   notify: notifyA,
 })(ListPage);

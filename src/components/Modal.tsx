@@ -28,10 +28,9 @@ const Modal: React.FunctionComponent<ModalOwnProps & { children: JSX.Element }> 
   );
 };
 
-const mapStateToProps = (state: RootState, ownProps: ModalOwnProps) => ({
+const mapStateToProps = (_state: RootState, ownProps: ModalOwnProps) => ({
   isOpen: ownProps.isOpen,
   setOpen: ownProps.setOpen,
-  isLoading: state.isLoading,
 });
 
 export default connect(mapStateToProps, {})(Modal);

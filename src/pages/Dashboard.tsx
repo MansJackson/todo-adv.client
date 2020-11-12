@@ -27,6 +27,8 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
           if (err2) notify('Could not fetch lists');
         });
       }
+      setListTitle('');
+      setModalOpen(false);
     });
   };
 
@@ -70,7 +72,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
       <Modal isOpen={modalOpen} setOpen={setModalOpen}>
         <div>
           <form onSubmit={(e) => addList(e)}>
-            <input type="text" className="modal_title" onChange={(e) => setListTitle(e.target.value)} />
+            <input value={listTitle} type="text" className="modal_title" onChange={(e) => setListTitle(e.target.value)} />
             <button type="button" className="modal_exitBtn" onClick={() => setModalOpen(false)}>EXIT</button>
             <button type="submit" className="modal_addBtn">ADD</button>
           </form>

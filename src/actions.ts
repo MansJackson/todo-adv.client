@@ -12,27 +12,6 @@ import {
   SET_SHARED_LISTS, SET_SOCKET,
 } from './types';
 
-export const setFormValueA = (type: string, payload: string) => (dispatch: Dispatch): void => {
-  dispatch({
-    type,
-    payload,
-  });
-};
-
-export const setFormMessageA = (type: string, message: string) => (dispatch: Dispatch): void => {
-  dispatch({
-    type,
-    message,
-  });
-};
-
-export const setValidFieldA = (type: string, valid: boolean) => (dispatch: Dispatch): void => {
-  dispatch({
-    type,
-    valid,
-  });
-};
-
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
   dispatch({
     type: SET_NOTIFICATION_TEXT,
@@ -57,12 +36,12 @@ export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void =
   });
 };
 
-export const setIsLoadingA = (payload: boolean) => (dispatch: Dispatch): void => {
-  dispatch({
-    type: SET_IS_LOADING,
-    payload,
-  });
-};
+// export const setIsLoadingA = (payload: boolean) => (dispatch: Dispatch): void => {
+//   dispatch({
+//     type: SET_IS_LOADING,
+//     payload,
+//   });
+// };
 
 export const setOwnedListA = (owned: List[]) => (dispatch: Dispatch): void => {
   dispatch({
@@ -147,7 +126,7 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
     });
 };
 
-export const getListA = (id: string, cb: Callback): void => {
+export const getListA = (id: string, cb: Callback) => (): void => {
   fetch(`http://localhost:8000/api/lists/${id}`, { credentials: 'include' })
     .then((res) => {
       if (res.status === 200) return res.json();
@@ -162,7 +141,7 @@ export const getListA = (id: string, cb: Callback): void => {
     });
 };
 
-export const postListA = (title: string, cb: Callback): void => {
+export const postListA = (title: string, cb: Callback) => (): void => {
   fetch('http://localhost:8000/api/lists', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },

@@ -122,30 +122,17 @@ export type NavbarProps = {
 };
 
 export type LoginProps = {
-  email: string;
-  password: string;
-  setValue: (type: string, payload: string) => void;
   notify: (message: string) => void;
   login: (email: string, password: string, cb: Callback) => void;
 };
 
 export type RegisterProps = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConf: string;
-  formMessages: FormMessagesState;
-  setValue: (type: string, payload: string) => void;
-  setValidField: (type: string, payload: boolean) => void;
-  setFormMsg: (type: string, payload: string) => void;
   notify: (message: string) => void;
 };
 
 export type RouteProps = {
   isLoggedIn: boolean;
   notification: NotificationState;
-  isLoading: boolean;
-  setIsLoading: (payload: boolean) => void;
   setIsLoggedIn: (payload: boolean) => void;
   notify: (message: string) => void;
 };
@@ -166,9 +153,7 @@ export type ModalOwnProps = {
 };
 
 export type ListProps = {
-  isLoading: boolean;
   socket: Socket;
-  setIsLoading: (payload: boolean) => void;
   getList: (id: string, cb: Callback) => void;
   notify: (message: string) => void;
 };
