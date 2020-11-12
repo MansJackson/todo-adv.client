@@ -5,7 +5,7 @@ import { setIsLoggedInA } from '../actions';
 import { NavbarProps, RootState } from '../types';
 
 const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn, children } = props;
 
   const logOut = () => {
     document.cookie = 'juid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
@@ -15,6 +15,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
   return (
     <div className="navbar">
       <Link to="/">Home</Link>
+      {children}
       {isLoggedIn && <button onClick={logOut} type="button">Log Out</button>}
     </div>
   );

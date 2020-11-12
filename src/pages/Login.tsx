@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loginA, notifyA } from '../actions';
 import Navbar from '../components/Navbar';
 import { LoginProps } from '../types';
@@ -21,7 +22,9 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
 
   return (
     <>
-      <Navbar />
+      <Navbar>
+        <Link to="/login">Log In</Link>
+      </Navbar>
       <form onSubmit={handleSubmit}>
         <input
           value={email}

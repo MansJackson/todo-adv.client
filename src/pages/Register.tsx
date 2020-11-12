@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { notifyA } from '../actions';
+import Navbar from '../components/Navbar';
 import { RegisterProps } from '../types';
 import isValidEmail from '../utils';
 
@@ -48,6 +50,10 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
   };
 
   return (
+    <>
+    <Navbar>
+      <Link to="/register">Register</Link>
+    </Navbar>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -87,6 +93,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
       <button type="submit" className="register_btn">Register</button>
     </form>
+    </>
   );
 };
 
