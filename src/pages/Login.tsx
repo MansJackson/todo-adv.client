@@ -24,6 +24,7 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
     <>
       <Navbar>
         <Link to="/login">Log In</Link>
+        <Link to="/register">Register</Link>
       </Navbar>
       <form onSubmit={handleSubmit}>
         <input

@@ -14,7 +14,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
 
   return (
     <div className="navbar">
-      <Link to="/">Home</Link>
+      {isLoggedIn && <Link to="/">Home</Link>}
       {children}
       {isLoggedIn && <button onClick={logOut} type="button">Log Out</button>}
     </div>

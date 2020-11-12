@@ -1,24 +1,7 @@
 import { Socket } from 'socket.io-client';
 
 // Action-types
-export const SET_LOGIN_EMAIL = 'SET_LOGIN_EMAIL';
-export const SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD';
-
-export const SET_REGISTER_NAME = 'SET_REGISTER_NAME';
-export const SET_REGISTER_EMAIL = 'SET_REGISTER_EMAIL';
-export const SET_REGISTER_PASSWORD = 'SET_REGISTER_PASSWORD';
-export const SET_REGISTER_PASSWORD_CONF = 'SET_REGISTER_PASSWORD_CONF';
-
-export const SET_VALID_EMAIL = 'SET_VALID_EMAIL';
-export const SET_VALID_PASSWORD = 'SET_VALID_PASSWORD';
-export const SET_VALID_PASSWORD_CONF = 'SET_VALID_PASSWORD_CONF';
-
-export const SET_EMAIL_MESSAGE = 'SET_EMAIL_MESSAGE';
-export const SET_PASSWORD_MESSAGE = 'SET_PASSWORD_MESSAGE';
-export const SET_PASSWORD_CONF_MESSAGE = 'SET_PASSWORD_CONF_MESSAGE';
-
 export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN';
-export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_NOTIFICATION_TEXT = 'SET_NOTIFICATION_TEXT';
 export const SET_NOTIFICATION_SHOW = 'SET_NOTIFICATION_SHOW';
 
@@ -34,12 +17,6 @@ export type SocketAction = {
   socket: Socket;
 };
 
-export type FormMessageAction = {
-  type: string;
-  message?: string;
-  valid?: boolean;
-};
-
 export type LoggedInAction = {
   type: string;
   payload: boolean;
@@ -49,11 +26,6 @@ export type NotificationAction = {
   type: string;
   text: string;
   show: boolean;
-};
-
-export type LoadingAction = {
-  type: string;
-  payload: boolean;
 };
 
 export type ListsAction = {
@@ -130,6 +102,15 @@ export type ListSummarProps = {
 export type ListSummaryOwnProps = {
   data: List;
   owned?: true;
+};
+
+export type ListItemProps = {
+  socket: Socket;
+};
+
+export type ListItemOwnProps = {
+  item: ListItem;
+  listId: string;
 };
 
 // Other

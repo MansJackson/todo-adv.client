@@ -32,6 +32,8 @@
         "@typescript-eslint/no-non-null-assertion": 0,
         "@typescript-eslint/ban-ts-comment": 0,
         "react/no-unescaped-entities": 0,
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0
     }
 }

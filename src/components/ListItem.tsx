@@ -1,15 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../types'
+import { ListItemOwnProps, ListItemProps, RootState } from '../types';
 
-const ListItem: React.FunctionComponent = (props): JSX.Element => {
+type ListItemT = React.FunctionComponent<ListItemProps & ListItemOwnProps>;
+
+const ListItem: ListItemT = (props): JSX.Element => {
+  const { item: { id, text, completed }, socket, listId } = props;
+
+  const toggleCompleted = () => { socket.emit('toggleCompleted', listId, id); };
+
   return (
-    <div></div>
+    <div onClick={toggleCompleted} className={`list_item ${completed ? 'completed' : ''}`}>
+      <p>{text}</p>
+    </div>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-
+const mapStateToProps = (state: RootState, ownProps: ListItemOwnProps) => ({
+  item: ownProps.item,
+  listId: ownProps.listId,
+  socket: state.socket,
 });
 
 export default connect(mapStateToProps, {})(ListItem);

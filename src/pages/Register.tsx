@@ -51,48 +51,49 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
   return (
     <>
-    <Navbar>
-      <Link to="/register">Register</Link>
-    </Navbar>
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        name="name"
-        className=""
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      />
+      <Navbar>
+        <Link to="/login">Log In</Link>
+        <Link to="/register">Register</Link>
+      </Navbar>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          name="name"
+          className=""
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      <input
-        type="text"
-        value={email}
-        name="email"
-        className=""
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <input
+          type="text"
+          value={email}
+          name="email"
+          className=""
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <input
-        type="password"
-        value={password}
-        name="password"
-        className=""
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <input
+          type="password"
+          value={password}
+          name="password"
+          className=""
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <input
-        type="password"
-        value={passwordConf}
-        name="passwordConf"
-        className=""
-        placeholder="Confirm password"
-        onChange={(e) => setPasswordConf(e.target.value)}
-      />
+        <input
+          type="password"
+          value={passwordConf}
+          name="passwordConf"
+          className=""
+          placeholder="Confirm password"
+          onChange={(e) => setPasswordConf(e.target.value)}
+        />
 
-      <button type="submit" className="register_btn">Register</button>
-    </form>
+        <button type="submit" className="register_btn">Register</button>
+      </form>
     </>
   );
 };

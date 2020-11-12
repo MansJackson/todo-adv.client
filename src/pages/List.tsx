@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getListA, notifyA } from '../actions';
+import ListItem from '../components/ListItem';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
 import { List, ListProps, RootState } from '../types';
@@ -66,7 +67,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
         </header>
         <section>
           {items && items.length
-            ? items.map((el) => <p key={el.id}>{el.text}</p>)
+            ? items.map((el) => <ListItem key={el.id} item={el} listId={id} />)
             : <p>no items yet</p>}
         </section>
       </div>
