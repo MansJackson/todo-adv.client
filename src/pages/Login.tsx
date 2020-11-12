@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { loginA, notifyA } from '../actions';
 import Navbar from '../components/Navbar';
 import { LoginProps } from '../types';
-import '../styles/Login.css';
+import '../styles/Form.css';
 
 const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   const { notify, login } = props;

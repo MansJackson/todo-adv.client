@@ -21,6 +21,10 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
       notify('Invalid email address');
       return;
     }
+    if (password.length < 8) {
+      notify('Password needs to be atleast 8 characters long');
+      return;
+    }
     if (password !== passwordConf) {
       notify('Passwords do not match');
       return;

@@ -20,7 +20,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
         {isLoggedIn ? <Link to="/">Home</Link> : null}
       </div>
       {isLoggedIn
-        ? <button className="button_logout" onClick={logOut} type="button">Log Out</button>
+        ? <Button variant="contained" onClick={logOut}>Log Out</Button>
         : (
           <>
             <Link to="/login">

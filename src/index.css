@@ -36,6 +36,18 @@ a:visited {
   align-items: center;
 }
 
+.wrapper_dashboard {
+  width: 100vw;
+  min-height: 100vh;
+  background: url('./images/background2.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  color: Black;
+  padding-top: 4rem;
+  display: flex;
+  align-items: center;
+}
+
 .space {
   margin: .5rem;
 }
@@ -47,8 +59,9 @@ a:visited {
 .notification {
   position: fixed;
   padding: 1rem;
-  background-color: rgba(255, 135, 131, 0.819);
-  bottom: 1rem;
+  border-radius: .5rem;
+  background-color: rgb(255, 135, 131);
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   transition: all .3s linear;

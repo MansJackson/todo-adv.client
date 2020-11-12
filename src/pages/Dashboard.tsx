@@ -8,6 +8,7 @@ import ListSummary from '../components/ListSummary';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
 import { DashboardProps, RootState } from '../types';
+import '../styles/Dashboard.css';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
   const {
@@ -51,24 +52,25 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
   }, [socket]);
 
   return (
-    <>
+    <div className="wrapper_dashboard">
       <Navbar />
-      <div>
-        <h1>Dashboard</h1>
-        <button type="button" onClick={() => setModalOpen(true)}>+ New List</button>
+      <section className="dashboard">
+        <h1>My Lists</h1>
         <div>
           <h2>Owned</h2>
           {!owned || !owned.length
             ? <p>No lists abvailable</p>
             : owned.map((el) => <ListSummary key={el.id} data={el} owned />)}
+          <button type="button" onClick={() => setModalOpen(true)}>+ New List</button>
         </div>
+        <hr />
         <div>
           <h2>Shared</h2>
           {!shared || !shared.length
             ? <p>No lists abvailable</p>
             : shared.map((el) => <ListSummary key={el.id} data={el} />)}
         </div>
-      </div>
+      </section>
       <Modal isOpen={modalOpen} setOpen={setModalOpen}>
         <div>
           <form onSubmit={(e) => addList(e)}>
@@ -78,7 +80,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
           </form>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 
