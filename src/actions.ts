@@ -2,14 +2,14 @@ import { Dispatch } from 'redux';
 import { io, Socket } from 'socket.io-client';
 import {
   Callback,
-  CLEAR_SOCKET,
   List,
-  SET_IS_LOADING,
+  CLEAR_SOCKET,
   SET_IS_LOGGED_IN,
   SET_NOTIFICATION_SHOW,
   SET_NOTIFICATION_TEXT,
   SET_OWNED_LISTS,
-  SET_SHARED_LISTS, SET_SOCKET,
+  SET_SHARED_LISTS,
+  SET_SOCKET,
 } from './types';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
@@ -33,27 +33,6 @@ export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void =
   dispatch({
     type: SET_IS_LOGGED_IN,
     payload,
-  });
-};
-
-// export const setIsLoadingA = (payload: boolean) => (dispatch: Dispatch): void => {
-//   dispatch({
-//     type: SET_IS_LOADING,
-//     payload,
-//   });
-// };
-
-export const setOwnedListA = (owned: List[]) => (dispatch: Dispatch): void => {
-  dispatch({
-    type: SET_OWNED_LISTS,
-    owned,
-  });
-};
-
-export const setSharedListA = (shared: List[]) => (dispatch: Dispatch): void => {
-  dispatch({
-    type: SET_SHARED_LISTS,
-    shared,
   });
 };
 

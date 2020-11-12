@@ -46,5 +46,4 @@ const mapStateToProps = (state: RootState, ownProps: ListSummaryOwnProps) => ({
   socket: state.socket,
 });
 
-export default connect(mapStateToProps, {
-})(ListSummary);
+export default connect(mapStateToProps, {})(ListSummary);

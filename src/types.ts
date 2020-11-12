@@ -34,16 +34,6 @@ export type SocketAction = {
   socket: Socket;
 };
 
-export type LoginAction = {
-  type: string;
-  payload: string;
-};
-
-export type RegisterAction = {
-  type: string;
-  payload: string;
-};
-
 export type FormMessageAction = {
   type: string;
   message?: string;
@@ -74,35 +64,10 @@ export type ListsAction = {
 
 // States
 export type RootState = {
-  login: LoginState;
-  register: RegisterState;
-  formMessages: FormMessagesState;
   isLoggedIn: boolean;
   notification: NotificationState;
-  isLoading: boolean;
   lists: ListsState;
   socket: Socket;
-};
-
-export type LoginState = {
-  email: string;
-  password: string;
-};
-
-export type RegisterState = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConf: string;
-};
-
-export type FormMessagesState = {
-  validEmail: boolean;
-  validPassword: boolean;
-  validPasswordConf: boolean;
-  emailMsg: string;
-  passwordMsg: string;
-  passwordConfMsg: string;
 };
 
 export type NotificationState = {
