@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import { notifyA, setIsLoggedInA } from './actions';
 import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
+import Home from './pages/Home';
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
@@ -44,7 +45,7 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          {!isLoggedIn ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
+          {!isLoggedIn ? <Home /> : <Redirect to="/dashboard" />}
         </Route>
         <Route path="/login">
           {isLoggedIn ? <Redirect to="/" /> : <Login />}

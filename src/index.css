@@ -2,9 +2,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'helvetica';
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(42, 118, 218);
+}
+
+a:visited {
+  color: rgb(42, 118, 218);
 }
 
 .show {
@@ -13,4 +22,34 @@
 
 .hide {
   opacity: 0;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: url('./images/background2.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  color: Black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.space {
+  margin: .5rem;
+}
+
+.space-2 {
+  margin: 2rem;
+}
+
+.notification {
+  position: fixed;
+  padding: 1rem;
+  background-color: rgba(255, 135, 131, 0.819);
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all .3s linear;
 }

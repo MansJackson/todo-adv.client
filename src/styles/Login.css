@@ -1,0 +1,27 @@
+.login_header {
+ position: fixed;
+ top: 0;
+}
+
+.form_body {
+  padding: 2rem;
+  border-radius: .5rem;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(212, 212, 212);
+  margin: 1rem;
+}
+
+.login_input {
+  padding: .5rem;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.link_text {
+  color: blue;
+  text-decoration: underline;
+}
+
+.form_footer_text {
+  text-align: center;
+}

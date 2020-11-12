@@ -1,3 +1,4 @@
+import { Button, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -50,51 +51,76 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
   };
 
   return (
-    <>
-      <Navbar>
-        <Link to="/login">Log In</Link>
-        <Link to="/register">Register</Link>
-      </Navbar>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={name}
-          name="name"
-          className=""
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
+    <div className="wrapper">
+      <Navbar />
+      <section className="form_body">
+        <form onSubmit={handleSubmit} autoComplete="off">
 
-        <input
-          type="text"
-          value={email}
-          name="email"
-          className=""
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          {/* Fixes material ui bug for some reason */}
+          <input type="search" autoComplete="off" style={{ visibility: 'hidden' }} />
 
-        <input
-          type="password"
-          value={password}
-          name="password"
-          className=""
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <TextField
+            fullWidth
+            label="Name"
+            variant="outlined"
+            value={name}
+            autoComplete="off"
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <input
-          type="password"
-          value={passwordConf}
-          name="passwordConf"
-          className=""
-          placeholder="Confirm password"
-          onChange={(e) => setPasswordConf(e.target.value)}
-        />
+          <div className="space" />
 
-        <button type="submit" className="register_btn">Register</button>
-      </form>
-    </>
+          <TextField
+            fullWidth
+            label="Email"
+            variant="outlined"
+            value={email}
+            autoComplete="new-password"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <div className="space" />
+
+          <TextField
+            fullWidth
+            type="password"
+            label="Password"
+            variant="outlined"
+            value={password}
+            autoComplete="new-password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <div className="space" />
+
+          <TextField
+            fullWidth
+            type="password"
+            label="Confirm Password"
+            variant="outlined"
+            value={passwordConf}
+            autoComplete="new-password"
+            onChange={(e) => setPasswordConf(e.target.value)}
+          />
+
+          <div className="space-2" />
+
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Register
+          </Button>
+
+          <div className="space-2" />
+          <hr />
+          <div className="space-2" />
+
+          <p className="form_footer_text">
+            Already have an account?
+            {' '}
+            <Link to="/login" className="link_text">Log In</Link>
+          </p>
+        </form>
+      </section>
+    </div>
   );
 };
 

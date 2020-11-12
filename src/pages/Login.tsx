@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { loginA, notifyA } from '../actions';
 import Navbar from '../components/Navbar';
 import { LoginProps } from '../types';
+import '../styles/Login.css';
 
 const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   const { notify, login } = props;
@@ -21,28 +23,53 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   };
 
   return (
-    <>
-      <Navbar>
-        <Link to="/login">Log In</Link>
-        <Link to="/register">Register</Link>
-      </Navbar>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={email}
-          type="text"
-          className="login_email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <div className="wrapper">
+      <Navbar />
+      <section className="form_body">
+        <form className="login_form" onSubmit={handleSubmit}>
 
-        <input
-          value={password}
-          type="password"
-          className="login_password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="login_btn">Log In</button>
-      </form>
-    </>
+          {/* Fixes material ui bug for some reason */}
+          <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+          <TextField
+            id="filled-basic"
+            fullWidth
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <div className="space" />
+
+          <TextField
+            id="filled-basic"
+            type="password"
+            fullWidth
+            label="Password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <div className="space-2" />
+
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Log In
+          </Button>
+
+          <div className="space-2" />
+          <hr />
+          <div className="space-2" />
+
+          <p className="form_footer_text">
+            Don't have an account?
+            {' '}
+            <Link to="/register" className="link_text">Register</Link>
+          </p>
+        </form>
+      </section>
+    </div>
   );
 };
 

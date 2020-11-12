@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import { setIsLoggedInA } from '../actions';
 import { NavbarProps, RootState } from '../types';
+import '../styles/Navbar.css';
 
 const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
-  const { isLoggedIn, setIsLoggedIn, children } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
 
   const logOut = () => {
     document.cookie = 'juid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
@@ -13,11 +15,28 @@ const Navbar: React.FunctionComponent<NavbarProps> = (props): JSX.Element => {
   };
 
   return (
-    <div className="navbar">
-      {isLoggedIn && <Link to="/">Home</Link>}
-      {children}
-      {isLoggedIn && <button onClick={logOut} type="button">Log Out</button>}
-    </div>
+    <nav className="navbar">
+      <div className="nav_link link_home">
+        {isLoggedIn ? <Link to="/">Home</Link> : null}
+      </div>
+      {isLoggedIn
+        ? <button className="button_logout" onClick={logOut} type="button">Log Out</button>
+        : (
+          <>
+            <Link to="/login">
+              <Button variant="contained" color="primary">
+                Log In
+              </Button>
+            </Link>
+            <div className="space" />
+            <Link to="/register">
+              <Button variant="outlined" color="primary">
+                Register
+              </Button>
+            </Link>
+          </>
+        )}
+    </nav>
   );
 };
 
