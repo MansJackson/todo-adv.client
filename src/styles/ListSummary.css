@@ -48,9 +48,60 @@
 .list_summary_avatar {
   height          : 1rem;
   font-size       : 10px !important;
-  background-color: rgb(44, 135, 255) !important;
 }
 
+.list_summary_avatar-disconnected {
+  height          : 1rem;
+  font-size       : 10px !important;
+}
+
+.bg-1 {
+  background-color: rgb(22, 79, 155) !important;
+}
+
+.bg-2 {
+  background-color: rgb(6, 94, 3) !important;
+}
+
+.bg-3 {
+  background-color: rgb(165, 91, 49) !important;
+}
+
+.bg-4 {
+  background-color: rgb(97, 15, 114) !important;
+}
+
+.bg-5 {
+  background-color: rgb(168, 138, 5) !important;
+}
+
+.bg-6 {
+  background-color: rgb(143, 31, 31) !important;
+}
+
+.color-1 {
+  background-color: rgb(22, 79, 155) !important;
+}
+
+.color-2 {
+  background-color: rgb(6, 94, 3) !important;
+}
+
+.color-3 {
+  background-color: rgb(165, 91, 49) !important;
+}
+
+.color-4 {
+  background-color: rgb(97, 15, 114) !important;
+}
+
+.color-5 {
+  background-color: rgb(168, 138, 5) !important;
+}
+
+.color-6 {
+  background-color: rgb(143, 31, 31) !important;
+}
 .confirm_text {
   padding: 1rem;
   margin-bottom: 1rem;

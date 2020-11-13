@@ -1,5 +1,6 @@
 import { Avatar, Button, TextField } from '@material-ui/core';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import Cursor from '@material-ui/icons/TouchApp';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -21,18 +22,28 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const [removeEditorModalOpen, setRemoveEditorModalOpen] = useState(false);
   const [selectedEditor, setSelectedEditor] = useState('');
   const [inputText, setInputText] = useState('');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [myId, setMyId] = useState('');
 
   const {
-    getList, socket, notify, setAmIOwner, amIOwner,
+    getList, notify, setAmIOwner, amIOwner, socket,
   } = props;
 
   useEffect(() => {
     setIsLoading(true);
+    fetch('http://localhost:8000/api/me', { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => { setMyId(data); })
+      .catch(() => null);
     getList(id, (err, data) => {
       if (err) window.location.href = '/';
       if (data) {
         setListData(data);
         socket.emit('joinRoom', id);
+
+        window.addEventListener('mousemove', (e) => {
+          setMousePosition({ x: e.clientX, y: e.clientY });
+        });
 
         socket.on('notification', (msg: string) => {
           notify(msg);
@@ -53,8 +64,15 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
     });
     return () => {
       if (socket) socket.emit('leaveRoom', id);
+      window.removeEventListener('mousemove', (e) => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      });
     };
   }, []);
+
+  useEffect(() => {
+    socket.emit('changeMousePosition', id, mousePosition);
+  }, [mousePosition]);
 
   if (isLoading) return <p>Loading...</p>;
   if (!listData) return <NotFound />;
@@ -85,16 +103,28 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
     setRemoveEditorModalOpen(false);
   };
 
+  const renderCursors = (): JSX.Element[] => {
+    const onlinePeople = [];
+    if (!amIOwner) onlinePeople.push(owner);
+    editors.forEach((el) => {
+      if (el.connected && el.id !== myId) onlinePeople.push(el);
+    });
+    return onlinePeople.map((el, i) => (
+      <Cursor key={el.id} style={{ position: 'fixed', left: `${el.mousePosition.x}px`, top: `${el.mousePosition.y}px` }} className={`color-${i + 1}`} />
+    ));
+  };
+
   const renderAvatars = (): JSX.Element => {
     if (amIOwner) {
       return (
         <div className="navbar_avatars">
           <AvatarGroup>
             <Avatar className="clickable" onClick={() => setEditorModalOpen(true)}>+</Avatar>
-            <Avatar className="list_summary_avatar">{owner.initials}</Avatar>
-            {editors.map((el) => (
+            <Avatar className={owner.connected ? 'list_summary_avatar bg-1' : 'list_summary_avatar-disconnected'}>{owner.initials}</Avatar>
+            {editors.map((el, i) => (
               <Avatar
-                className="list_summary_avatar clickable"
+                key={el.id}
+                className={el.connected ? `list_summary_avatar clickable bg-${i + 2}` : 'list_summary_avatar-disconnected clickable'}
                 onClick={() => {
                   setSelectedEditor(el.id);
                   setRemoveEditorModalOpen(true);
@@ -110,9 +140,9 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
     return (
       <div className="navbar_avatars">
         <AvatarGroup>
-          <Avatar className="list_summary_avatar">{owner.initials}</Avatar>
-          {editors.map((el) => (
-            <Avatar className="list_summary_avatar">{el.initials}</Avatar>))}
+          <Avatar className={owner.connected ? 'list_summary_avatar bg-1' : 'list_summary_avatar-disconnected'}>{owner.initials}</Avatar>
+          {editors.map((el, i) => (
+            <Avatar key={el.id} className={el.connected ? `list_summary_avatar bg-${i + 2}` : 'list_summary_avatar-disconnected'}>{el.initials}</Avatar>))}
         </AvatarGroup>
       </div>
     );
@@ -185,6 +215,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
           </div>
         </div>
       </Modal>
+      {renderCursors()}
     </div>
   );
 };

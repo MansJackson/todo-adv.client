@@ -131,9 +131,19 @@ export type ListItemOwnProps = {
 export type List = {
   id: string;
   title: string;
-  owner: { id: string, initials: string };
-  editors: { id: string, initials: string }[];
-  items: ListItem[];
+  owner: {
+    id: string,
+    initials: string,
+    mousePosition: { x: number, y: number },
+    connected: boolean,
+  };
+  editors: {
+    id: string,
+    initials: string,
+    mousePosition: { x: number, y: number },
+    connected: boolean,
+  }[];
+  items: { id: string, text: string, completed: boolean }[];
 };
 
 export type ListItem = {

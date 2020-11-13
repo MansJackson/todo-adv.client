@@ -55,9 +55,9 @@ const ListSummary: ListSummaryT = (props): JSX.Element => {
       <div className="list_summary">
         <div className="list_summary_header">
           <AvatarGroup max={4}>
-            <Avatar className={`${classes.small} list_summary_avatar`}>{owner.initials}</Avatar>
-            {editors.map((el) => (
-              <Avatar key={el.id} className={`${classes.small} list_summary_avatar`}>{el.initials}</Avatar>))}
+            <Avatar className={`${classes.small} list_summary_avatar bg-1`}>{owner.initials}</Avatar>
+            {editors.map((el, i) => (
+              <Avatar key={el.id} className={`${classes.small} list_summary_avatar bg-${i + 2}`}>{el.initials}</Avatar>))}
           </AvatarGroup>
           {owned
             ? <DeleteIcon className="list_summary_deleteBtn" onClick={() => setDeleteModalOpen(true)} color="secondary" />
