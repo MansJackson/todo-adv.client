@@ -32,7 +32,6 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
           <input autoComplete="false" style={{ visibility: 'hidden' }} />
 
           <TextField
-            id="filled-basic"
             fullWidth
             label="Email"
             variant="outlined"
@@ -43,7 +42,6 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
           <div className="space" />
 
           <TextField
-            id="filled-basic"
             type="password"
             fullWidth
             label="Password"

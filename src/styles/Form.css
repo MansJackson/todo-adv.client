@@ -1,24 +1,37 @@
 .login_header {
- position: fixed;
- top: 0;
+  position: fixed;
+  top     : 0;
 }
 
 .form_body {
-  padding: 2rem;
+  padding      : 2rem;
   border-radius: .5rem;
-  background: rgb(255, 255, 255);
-  border: 1px solid rgb(212, 212, 212);
-  margin: 1rem;
+  background   : rgb(255, 255, 255);
+  border       : 1px solid rgb(212, 212, 212);
+  margin       : 1rem;
+}
+
+.form_body a {
+  text-decoration: none;
+  color          : rgb(42, 118, 218);
+}
+
+.form_body a:hover {
+  text-decoration: underline;
+}
+
+.form_body a:visited {
+  color: rgb(42, 118, 218);
 }
 
 .login_input {
-  padding: .5rem;
+  padding  : .5rem;
   font-size: 1.5rem;
-  width: 100%;
+  width    : 100%;
 }
 
 .link_text {
-  color: blue;
+  color          : blue;
   text-decoration: underline;
 }
 

@@ -1,24 +1,44 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import {
+  Avatar,
+  Button,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core';
 import { ListSummarProps, ListSummaryOwnProps, RootState } from '../types';
 import Modal from './Modal';
+import '../styles/ListSummary.css';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+}));
 
 type ListSummaryT = React.FunctionComponent<ListSummarProps & ListSummaryOwnProps>;
 
 const ListSummary: ListSummaryT = (props): JSX.Element => {
-  const { data: { id, title, editors }, socket, owned } = props;
+  const {
+    data: {
+      id,
+      title,
+      editors,
+      owner,
+    },
+    socket,
+    owned,
+  } = props;
 
-  const [editorModalOpen, setEditorModalOpen] = useState(false);
+  const classes = useStyles();
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteEditorModalOpen, setDeleteEditorModalOpen] = useState(false);
-  const [inputText, setInputText] = useState('');
-
-  const addEditor = (e: React.FormEvent) => {
-    e.preventDefault();
-    socket.emit('addEditor', inputText, id);
-    setEditorModalOpen(false);
-  };
 
   const deleteList = () => {
     socket.emit('deleteList', id);
@@ -32,38 +52,39 @@ const ListSummary: ListSummaryT = (props): JSX.Element => {
 
   return (
     <>
-      {owned
-        ? <button type="button" className="delete_list" onClick={() => setDeleteModalOpen(true)}>-</button>
-        : <button type="button" className="remove_editor" onClick={() => setDeleteEditorModalOpen(true)}>-</button>}
-      <Link to={`/list/${id}`}>
-        <div className="dashboard_list" id={id}>
-          <h1>{title}</h1>
-          {editors
-            ? editors.map((el) => (
-              <p>{el.initials}</p>
-            ))
-            : null}
+      <div className="list_summary">
+        <div className="list_summary_header">
+          <AvatarGroup max={4}>
+            <Avatar className={`${classes.small} list_summary_avatar`}>{owner.initials}</Avatar>
+            {editors.map((el) => (
+              <Avatar key={el.id} className={`${classes.small} list_summary_avatar`}>{el.initials}</Avatar>))}
+          </AvatarGroup>
+          {owned
+            ? <DeleteIcon className="list_summary_deleteBtn" onClick={() => setDeleteModalOpen(true)} color="secondary" />
+            : <DeleteIcon className="list_summary_deleteBtn" onClick={() => setDeleteEditorModalOpen(true)} color="secondary" />}
         </div>
-      </Link>
-      <button type="button" className="addEditor_btn" onClick={() => setEditorModalOpen(true)}>+</button>
-      <Modal isOpen={editorModalOpen} setOpen={setEditorModalOpen}>
-        <form onSubmit={addEditor}>
-          <input placeholder="Email" type="text" onChange={(e) => setInputText(e.target.value)} />
-          <button type="submit">Add</button>
-        </form>
-      </Modal>
+        <Link to={`/list/${id}`}>
+          <div className="list_summary_body" id={id}>
+            <h1>{title}</h1>
+          </div>
+        </Link>
+      </div>
       <Modal isOpen={deleteModalOpen} setOpen={setDeleteModalOpen}>
         <div>
-          <p>Are you sure you want to delete this list</p>
-          <button type="button" onClick={() => setDeleteModalOpen(false)}>Cancel</button>
-          <button type="button" onClick={deleteList}>Confirm</button>
+          <p className="confirm_text">Are you sure you want to delete this list</p>
+          <div className="confirm_buttons">
+            <Button type="button" color="secondary" onClick={() => setDeleteModalOpen(false)}>Cancel</Button>
+            <Button type="button" color="primary" onClick={deleteList}>Confirm</Button>
+          </div>
         </div>
       </Modal>
       <Modal isOpen={deleteEditorModalOpen} setOpen={setDeleteEditorModalOpen}>
         <div>
-          <p>Are you sure you want to remove your permission to edit this file?</p>
-          <button type="button" onClick={() => setDeleteEditorModalOpen(false)}>Cancel</button>
-          <button type="button" onClick={removeFromEditor}>Confirm</button>
+          <p className="confirm_text">Are you sure you want to remove your permission to edit this file?</p>
+          <div className="confirm_buttons">
+            <Button type="button" color="secondary" onClick={() => setDeleteEditorModalOpen(false)}>Cancel</Button>
+            <Button type="button" color="primary" onClick={removeFromEditor}>Confirm</Button>
+          </div>
         </div>
       </Modal>
     </>

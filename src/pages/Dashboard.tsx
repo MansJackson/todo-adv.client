@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Button, TextField } from '@material-ui/core';
 import {
   connectSocketA,
   getListsA, notifyA, postListA,
@@ -53,19 +54,17 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
 
   return (
     <div className="wrapper_dashboard">
-      <Navbar />
+      <Navbar filled />
       <section className="dashboard">
-        <h1>My Lists</h1>
-        <div>
-          <h2>Owned</h2>
+        <h2 className="owned_title">My Lists</h2>
+        <div className="dashboard_owned">
           {!owned || !owned.length
-            ? <p>No lists abvailable</p>
+            ? null
             : owned.map((el) => <ListSummary key={el.id} data={el} owned />)}
-          <button type="button" onClick={() => setModalOpen(true)}>+ New List</button>
+          <div className="dashboard_newBtn" onClick={() => setModalOpen(true)}>+</div>
         </div>
-        <hr />
-        <div>
-          <h2>Shared</h2>
+        <h2 className="shared_title">Shared With Me</h2>
+        <div className="dashboard_shared">
           {!shared || !shared.length
             ? <p>No lists abvailable</p>
             : shared.map((el) => <ListSummary key={el.id} data={el} />)}
@@ -74,9 +73,23 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
       <Modal isOpen={modalOpen} setOpen={setModalOpen}>
         <div>
           <form onSubmit={(e) => addList(e)}>
-            <input value={listTitle} type="text" className="modal_title" onChange={(e) => setListTitle(e.target.value)} />
-            <button type="button" className="modal_exitBtn" onClick={() => setModalOpen(false)}>EXIT</button>
-            <button type="submit" className="modal_addBtn">ADD</button>
+            {/* Fixes material ui bug for some reason */}
+            <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+            <TextField
+              fullWidth
+              label="Title"
+              variant="outlined"
+              value={listTitle}
+              onChange={(e) => setListTitle(e.target.value)}
+            />
+
+            <div className="space-2" />
+
+            <div className="confirm_buttons">
+              <Button type="button" color="secondary" onClick={() => setModalOpen(false)}>Exit</Button>
+              <Button type="submit" color="primary">Add</Button>
+            </div>
           </form>
         </div>
       </Modal>

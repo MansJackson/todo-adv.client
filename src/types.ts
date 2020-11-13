@@ -11,6 +11,8 @@ export const SET_SHARED_LISTS = 'SET_SHARED_LISTS';
 export const SET_SOCKET = 'SET_SOCKET';
 export const CLEAR_SOCKET = 'CLEAR_SOCKET';
 
+export const SET_AM_I_OWNER = 'SET_AM_I_OWNER';
+
 // Actions
 export type SocketAction = {
   type: string;
@@ -34,12 +36,18 @@ export type ListsAction = {
   shared: List[];
 };
 
+export type AmIOwnerAction = {
+  type: string;
+  payload: boolean;
+};
+
 // States
 export type RootState = {
   isLoggedIn: boolean;
   notification: NotificationState;
   lists: ListsState;
   socket: Socket;
+  amIOwner: boolean;
 };
 
 export type NotificationState = {
@@ -56,6 +64,10 @@ export type ListsState = {
 export type NavbarProps = {
   isLoggedIn: boolean;
   setIsLoggedIn: (payload: boolean) => void;
+};
+
+export type NavbarOwnProps = {
+  filled?: true;
 };
 
 export type LoginProps = {
@@ -91,6 +103,8 @@ export type ModalOwnProps = {
 
 export type ListProps = {
   socket: Socket;
+  amIOwner: boolean;
+  setAmIOwner: (payload: boolean) => void;
   getList: (id: string, cb: Callback) => void;
   notify: (message: string) => void;
 };
@@ -117,7 +131,7 @@ export type ListItemOwnProps = {
 export type List = {
   id: string;
   title: string;
-  owner: string;
+  owner: { id: string, initials: string };
   editors: { id: string, initials: string }[];
   items: ListItem[];
 };

@@ -1,30 +1,37 @@
+import { Avatar, Button, TextField } from '@material-ui/core';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getListA, notifyA } from '../actions';
+import { getListA, notifyA, setAmIOwnerA } from '../actions';
 import ListItem from '../components/ListItem';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
 import { List, ListProps, RootState } from '../types';
 import NotFound from './NotFound';
+import '../styles/List.css';
 
 const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
 
   const [isLoading, setIsLoading] = useState(true);
   const [listData, setListData] = useState<List | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [itemText, setItemText] = useState('');
+  const [itemModalOpen, setItemModalOpen] = useState(false);
+  const [editorModalOpen, setEditorModalOpen] = useState(false);
+  const [removeEditorModalOpen, setRemoveEditorModalOpen] = useState(false);
+  const [selectedEditor, setSelectedEditor] = useState('');
+  const [inputText, setInputText] = useState('');
 
-  const { getList, socket, notify } = props;
+  const {
+    getList, socket, notify, setAmIOwner, amIOwner,
+  } = props;
 
   useEffect(() => {
     setIsLoading(true);
     getList(id, (err, data) => {
-      if (err) notify(err.message);
+      if (err) window.location.href = '/';
       if (data) {
         setListData(data);
-
         socket.emit('joinRoom', id);
 
         socket.on('notification', (msg: string) => {
@@ -37,6 +44,10 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
             if (data2) setListData(data2);
           });
         });
+
+        socket.on('isOwner', (payload: boolean) => {
+          setAmIOwner(payload);
+        });
       }
       setIsLoading(false);
     });
@@ -48,44 +59,143 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   if (isLoading) return <p>Loading...</p>;
   if (!listData) return <NotFound />;
 
-  const { title, items } = listData;
+  const {
+    title,
+    items,
+    owner,
+    editors,
+  } = listData;
 
   const addItem = (e: React.FormEvent) => {
     e.preventDefault();
-    socket.emit('addItem', id, itemText);
-    setItemText('');
-    setModalOpen(false);
+    socket.emit('addItem', id, inputText);
+    setInputText('');
+    setItemModalOpen(false);
+  };
+
+  const addEditor = (e: React.FormEvent) => {
+    e.preventDefault();
+    socket.emit('addEditor', inputText, id);
+    setInputText('');
+    setEditorModalOpen(false);
+  };
+
+  const removeEditor = () => {
+    socket.emit('removeEditor', selectedEditor, id);
+    setRemoveEditorModalOpen(false);
+  };
+
+  const renderAvatars = (): JSX.Element => {
+    if (amIOwner) {
+      return (
+        <div className="navbar_avatars">
+          <AvatarGroup>
+            <Avatar className="clickable" onClick={() => setEditorModalOpen(true)}>+</Avatar>
+            <Avatar className="list_summary_avatar">{owner.initials}</Avatar>
+            {editors.map((el) => (
+              <Avatar
+                className="list_summary_avatar clickable"
+                onClick={() => {
+                  setSelectedEditor(el.id);
+                  setRemoveEditorModalOpen(true);
+                }}
+              >
+                {el.initials}
+              </Avatar>
+            ))}
+          </AvatarGroup>
+        </div>
+      );
+    }
+    return (
+      <div className="navbar_avatars">
+        <AvatarGroup>
+          <Avatar className="list_summary_avatar">{owner.initials}</Avatar>
+          {editors.map((el) => (
+            <Avatar className="list_summary_avatar">{el.initials}</Avatar>))}
+        </AvatarGroup>
+      </div>
+    );
   };
 
   return (
-    <>
-      <Navbar />
-      <div>
-        <header>
+    <div className="wrapper_dashboard">
+      <Navbar filled>
+        {renderAvatars()}
+      </Navbar>
+      <div className="list">
+        <header className="list_header">
           <h1>{title}</h1>
-          <button type="button" onClick={() => setModalOpen(true)}>+</button>
         </header>
-        <section>
+        <section className="list_body">
+          <div className="list-addItem" onClick={() => setItemModalOpen(true)}>+</div>
           {items && items.length
             ? items.map((el) => <ListItem key={el.id} item={el} listId={id} />)
-            : <p>no items yet</p>}
+            : null}
         </section>
       </div>
-      <Modal isOpen={modalOpen} setOpen={setModalOpen}>
+      <Modal isOpen={itemModalOpen} setOpen={setItemModalOpen}>
         <form onSubmit={addItem}>
-          <input value={itemText} type="text" onChange={(e) => setItemText(e.target.value)} />
-          <button type="submit">Add</button>
+          {/* Fixes material ui bug for some reason */}
+          <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+          <TextField
+            fullWidth
+            label="To Do"
+            variant="outlined"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+
+          <div className="space-2" />
+
+          <div className="confirm_buttons">
+            <Button type="button" color="secondary" onClick={() => setItemModalOpen(false)}>Exit</Button>
+            <Button type="submit" color="primary">Add</Button>
+          </div>
         </form>
       </Modal>
-    </>
+      <Modal isOpen={editorModalOpen} setOpen={setEditorModalOpen}>
+        <form onSubmit={addEditor}>
+          {/* Fixes material ui bug for some reason */}
+          <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+          <TextField
+            fullWidth
+            label="Email"
+            variant="outlined"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+
+          <div className="space-2" />
+
+          <div className="confirm_buttons">
+            <Button type="button" color="secondary" onClick={() => setEditorModalOpen(false)}>Exit</Button>
+            <Button type="submit" color="primary">Add</Button>
+          </div>
+        </form>
+      </Modal>
+      <Modal isOpen={removeEditorModalOpen} setOpen={setRemoveEditorModalOpen}>
+        <div>
+          <p className="confirm_text">Are you sure you want to remove this user</p>
+          <div className="confirm_buttons">
+            <Button type="button" color="secondary" onClick={() => setRemoveEditorModalOpen(false)}>Cancel</Button>
+            <Button type="button" color="primary" onClick={removeEditor}>Confirm</Button>
+          </div>
+        </div>
+      </Modal>
+    </div>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
   socket: state.socket,
+  amIOwner: state.amIOwner,
 });
 
 export default connect(mapStateToProps, {
   getList: getListA,
   notify: notifyA,
+  setAmIOwner: setAmIOwnerA,
 })(ListPage);

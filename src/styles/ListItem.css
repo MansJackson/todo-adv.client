@@ -1,0 +1,35 @@
+.list_item {
+  padding   : 1.5rem;
+  border-top: 1px solid rgb(207, 207, 207);
+  cursor    : pointer;
+  transition: all .1s ease-in-out;
+  position: relative;
+  order: 1;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+}
+
+.list_item:hover {
+  -webkit-box-shadow: inset 0px 2px 76px -60px rgba(145, 145, 145, 1);
+  -moz-box-shadow   : inset 0px 2px 76px -60px rgba(145, 145, 145, 1);
+  box-shadow        : inset 0px 2px 76px -60px rgba(145, 145, 145, 1);
+}
+
+.list_item_deleteBtn {
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  position: absolute;
+  z-index: 9999;
+  top: 8px;
+  right: 4px;
+}
+
+.list_item:hover > .list_item_deleteBtn {
+  opacity: 1;
+}
+
+.completed {
+  background-color: rgb(233, 233, 233);
+  order: 2;
+  text-decoration: line-through;
+}

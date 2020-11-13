@@ -10,6 +10,7 @@ import {
   SET_NOTIFICATION_TEXT,
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
+  SET_AM_I_OWNER,
 } from './types';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
@@ -167,4 +168,11 @@ export const loginA = (
     .catch(() => {
       cb(new Error('Internal server error'), undefined);
     });
+};
+
+export const setAmIOwnerA = (payload: boolean) => (dispatch: Dispatch): void => {
+  dispatch({
+    type: SET_AM_I_OWNER,
+    payload,
+  });
 };

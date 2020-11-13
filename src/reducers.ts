@@ -4,14 +4,16 @@ import {
   NotificationAction,
   LoggedInAction,
   ListsAction,
+  AmIOwnerAction,
+  SocketAction,
   SET_IS_LOGGED_IN,
   SET_NOTIFICATION_TEXT,
   SET_NOTIFICATION_SHOW,
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
-  SocketAction,
   SET_SOCKET,
   CLEAR_SOCKET,
+  SET_AM_I_OWNER,
 } from './types';
 
 const defaultNotificationState = { text: '', show: false };
@@ -62,9 +64,19 @@ const socketReducer = (state: null | Socket = null, action: SocketAction) => {
   }
 };
 
+const amIOwnerreducer = (state = false, action: AmIOwnerAction) => {
+  switch (action.type) {
+    case SET_AM_I_OWNER:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   isLoggedIn: loggedInReducer,
   notification: notificationReducer,
   lists: listsReducer,
   socket: socketReducer,
+  amIOwner: amIOwnerreducer,
 });
