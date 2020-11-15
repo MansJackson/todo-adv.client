@@ -69,3 +69,51 @@
   -moz-box-shadow   : 0px 2px 2px 0px rgba(145, 145, 145, 1);
   box-shadow        : 0px 2px 2px 0px rgba(145, 145, 145, 1);
 }
+
+.bg-1 {
+  background-color: rgb(22, 79, 155) !important;
+}
+
+.bg-2 {
+  background-color: rgb(6, 94, 3) !important;
+}
+
+.bg-3 {
+  background-color: rgb(165, 91, 49) !important;
+}
+
+.bg-4 {
+  background-color: rgb(97, 15, 114) !important;
+}
+
+.bg-5 {
+  background-color: rgb(168, 138, 5) !important;
+}
+
+.bg-6 {
+  background-color: rgb(143, 31, 31) !important;
+}
+
+.color-1 path {
+  color: rgb(22, 79, 155) !important;
+}
+
+.color-2 path {
+  color: rgb(6, 94, 3) !important;
+}
+
+.color-3 path {
+  color: rgb(165, 91, 49) !important;
+}
+
+.color-4 path {
+  color: rgb(97, 15, 114) !important;
+}
+
+.color-5 path {
+  color: rgb(168, 138, 5) !important;
+}
+
+.color-6 path {
+  color: rgb(143, 31, 31) !important;
+}

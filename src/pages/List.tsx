@@ -56,6 +56,10 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
           });
         });
 
+        socket.on('updateListNew', (newList: List) => {
+          setListData(newList);
+        });
+
         socket.on('isOwner', (payload: boolean) => {
           setAmIOwner(payload);
         });
@@ -104,14 +108,15 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   };
 
   const renderCursors = (): JSX.Element[] => {
-    const onlinePeople = [];
-    if (!amIOwner) onlinePeople.push(owner);
-    editors.forEach((el) => {
-      if (el.connected && el.id !== myId) onlinePeople.push(el);
-    });
-    return onlinePeople.map((el, i) => (
-      <Cursor key={el.id} style={{ position: 'fixed', left: `${el.mousePosition.x}px`, top: `${el.mousePosition.y}px` }} className={`color-${i + 1}`} />
+    const render = editors.map((el) => (
+      el.id !== myId && el.connected
+        ? <Cursor key={el.id} style={{ position: 'fixed', left: `${el.mousePosition.x}px`, top: `${el.mousePosition.y}px` }} className={`color-${el.color}`} />
+        : <span />
     ));
+    if (owner.connected && owner.id !== myId) {
+      render.push(<Cursor key={owner.id} style={{ position: 'fixed', left: `${owner.mousePosition.x}px`, top: `${owner.mousePosition.y}px` }} className="color-1" />);
+    }
+    return render;
   };
 
   const renderAvatars = (): JSX.Element => {
@@ -121,10 +126,10 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
           <AvatarGroup>
             <Avatar className="clickable" onClick={() => setEditorModalOpen(true)}>+</Avatar>
             <Avatar className={owner.connected ? 'list_summary_avatar bg-1' : 'list_summary_avatar-disconnected'}>{owner.initials}</Avatar>
-            {editors.map((el, i) => (
+            {editors.map((el) => (
               <Avatar
                 key={el.id}
-                className={el.connected ? `list_summary_avatar clickable bg-${i + 2}` : 'list_summary_avatar-disconnected clickable'}
+                className={el.connected ? `list_summary_avatar clickable bg-${el.color}` : 'list_summary_avatar-disconnected clickable'}
                 onClick={() => {
                   setSelectedEditor(el.id);
                   setRemoveEditorModalOpen(true);
@@ -141,8 +146,8 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
       <div className="navbar_avatars">
         <AvatarGroup>
           <Avatar className={owner.connected ? 'list_summary_avatar bg-1' : 'list_summary_avatar-disconnected'}>{owner.initials}</Avatar>
-          {editors.map((el, i) => (
-            <Avatar key={el.id} className={el.connected ? `list_summary_avatar bg-${i + 2}` : 'list_summary_avatar-disconnected'}>{el.initials}</Avatar>))}
+          {editors.map((el) => (
+            <Avatar key={el.id} className={el.connected ? `list_summary_avatar bg-${el.color}` : 'list_summary_avatar-disconnected'}>{el.initials}</Avatar>))}
         </AvatarGroup>
       </div>
     );
