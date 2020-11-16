@@ -12,7 +12,7 @@ import { List, ListProps, RootState } from '../types';
 import NotFound from './NotFound';
 import '../styles/List.css';
 
-const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.herokuapp.com/' : 'http://localhost:8000';
+const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.herokuapp.com' : 'http://localhost:8000';
 
 const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
