@@ -17,7 +17,7 @@ const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.hero
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
-    setIsLoggedIn, setCookie, isLoggedIn, notification,
+    setIsLoggedIn, isLoggedIn, notification,
   } = props;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -29,12 +29,7 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
     })
       .then((res) => {
         if (res.status === 200) {
-          res.json()
-            .then((data: { cookie: string }) => {
-              setCookie(data.cookie);
-              setIsLoggedIn(true);
-            })
-            .catch(() => null);
+          setIsLoggedIn(true);
         } else setIsLoggedIn(false);
         setIsLoading(false);
       })
