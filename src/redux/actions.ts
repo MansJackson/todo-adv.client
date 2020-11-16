@@ -155,6 +155,7 @@ export const loginA = (
       if (res.status === 200) {
         res.json()
           .then((data: { cookie: string }) => {
+            window.localStorage.setItem('auth', data.cookie);
             dispatch({
               type: SET_COOKIE,
               payload: data.cookie,

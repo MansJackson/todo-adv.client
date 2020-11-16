@@ -38,7 +38,10 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
     getLists((err) => {
       if (err) {
         notify(err.message);
-      } else connectSocket(cookie);
+      } else {
+        const auth = window.localStorage.getItem('auth') || cookie;
+        connectSocket(auth);
+      }
     });
   }, []);
 
