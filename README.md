@@ -20,8 +20,8 @@ This is a coding test for Ubiquiti. It is a webapplication where you are able to
 
 
 ## Installation
-clone this repo and run `npm install`
-you will also need the server to run parallel to this [link](https://github.com/MansJackson/todo-adv.server)
+* clone this repo and run `npm install`
+* you will also need the [server](https://github.com/MansJackson/todo-adv.server) to run parallel to this
 
 ## Usage
 Live version, [link](https://mj-todo-client.herokuapp.com/).
