@@ -1,6 +1,9 @@
 import React from 'react';
+import dotenv from 'dotenv';
 import Navbar from '../components/Navbar';
 import '../styles/Home.css';
+
+dotenv.config();
 
 const Home: React.FunctionComponent = (): JSX.Element => (
   <div className="wrapper">
@@ -12,6 +15,7 @@ const Home: React.FunctionComponent = (): JSX.Element => (
         <br />
         and collaborate on them with your friends and family.
       </p>
+      {process.env.SERVER_URL}
     </div>
   </div>
 );

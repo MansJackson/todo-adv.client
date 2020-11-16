@@ -13,7 +13,7 @@ import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
 import Home from './pages/Home';
 
-const url = process.env.SERVER_URL || 'http://localhost:8000';
+const url = process.env.REACT_APP_SERVER_URL || 'https://mj-todo-server.herokuapp.com/';
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
