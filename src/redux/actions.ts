@@ -195,6 +195,6 @@ export const setAmIOwnerA = (payload: boolean) => (dispatch: Dispatch): void => 
 export const setCookieA = (payload: string) => (dispatch: Dispatch): void => {
   dispatch({
     type: SET_COOKIE,
-    payload,
+    payload: payload || '',
   });
 };
