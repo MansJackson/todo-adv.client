@@ -41,8 +41,9 @@ export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void =
 
 export const connectSocketA = () => (dispatch: Dispatch): void => {
   const socket = io(url, {
-    query: { cookie: document.cookie },
+    query: { token: document.cookie },
   });
+  console.log(document.cookie);
   socket.on('notification', (message: string) => {
     dispatch({
       type: SET_NOTIFICATION_TEXT,
