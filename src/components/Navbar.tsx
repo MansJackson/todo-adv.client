@@ -22,7 +22,6 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
     fetch(`${url}/auth/logout`, { credentials: 'include' })
       .then(() => {
         setIsLoggedIn(false);
-        window.location.href = '/';
       })
       .catch(() => null);
   };
