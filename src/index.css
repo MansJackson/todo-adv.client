@@ -22,10 +22,13 @@
   background: url('./images/background2.jpg');
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
   color: Black;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .wrapper_dashboard {
@@ -34,10 +37,13 @@
   background: url('./images/background2.jpg');
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
   color: Black;
   padding-top: 4rem;
   display: flex;
   align-items: baseline;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .space {

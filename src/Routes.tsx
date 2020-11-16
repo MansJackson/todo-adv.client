@@ -30,8 +30,8 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
       .then((res) => {
         if (res.status === 200) {
           res.json()
-            .then((data: {cookie: string}) => {
-              setCookie(data.cookie);
+            .then((data: { cookie: string }) => {
+              if (data.cookie) setCookie(data.cookie);
               setIsLoggedIn(true);
             })
             .catch(() => null);

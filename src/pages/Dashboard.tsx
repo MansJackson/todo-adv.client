@@ -13,7 +13,7 @@ import '../styles/Dashboard.css';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
   const {
-    owned, shared, socket, cookie, getLists, postList, notify, connectSocket,
+    owned, shared, cookie, getLists, postList, notify, connectSocket,
   } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -48,16 +48,6 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
       }
     });
   }, []);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('updateLists', () => {
-        getLists((err) => {
-          if (err) notify(err.message);
-        });
-      });
-    }
-  }, [socket]);
 
   return (
     <div className="wrapper_dashboard">
