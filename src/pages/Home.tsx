@@ -16,7 +16,6 @@ const Home: React.FunctionComponent = (): JSX.Element => (
           <br />
           and collaborate on them with your friends and family.
         </p>
-        {process.env.SERVER_URL}
       </div>
     </div>
   </>

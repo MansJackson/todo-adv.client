@@ -114,7 +114,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Register
-          </Button>
+            </Button>
 
             <div className="space-2" />
             <hr />
@@ -122,7 +122,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
             <p className="form_footer_text">
               Already have an account?
-            {' '}
+              {' '}
               <Link to="/login" className="link_text">Log In</Link>
             </p>
           </form>
