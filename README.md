@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# ChatApp
+A fullstack chat application using Socket.io, Node.js, Express, React, Redux, TypeScript
+## Table of contents
+* [Description](#description)
+* [Technologies used](#technologies-used)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Future developments/improvements](#future-developments/improvements)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+This is a coding test for Ubiquiti. It is a webapplication where you are able to create and share lists with friends.
 
-## Available Scripts
+## Technologies used
+<a href="https://socket.io/" title="SocketIO"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/socket.io.svg" alt="SocketIO" width="30px" height="30px"></img> Socket.io</a>  
+<a href="https://reactjs.org/" title="React"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/react.svg" alt="React" width="30px" height="30px"></img> React</a>  
+<a href="https://reactrouter.com/" title="ReactRouter"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/react-router.svg" alt="ReactRouter" width="30px" height="30px"></img> React Router</a>  
+<a href="https://redux.js.org/" title="Redux"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/redux.svg" alt="Redux" width="30px" height="30px"></img> Redux</a>  
+<a href="https://www.typescriptlang.org/" title="TypeScript"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/typescript-icon.svg" alt="TypeScript" width="30px" height="30px"></img> TypeScript</a>  
+<a href="https://jestjs.io/" title="Jest"><img src="https://github.com/tomchen/stack-icons/blob/master/logos/jest.svg" alt="Jest" width="30px" height="30px"></img> Jest</a>  
 
-In the project directory, you can run:
 
-### `npm start`
+## Installation
+clone this repo and run `npm install`
+you will also need the server to run parallel to this [link](https://github.com/MansJackson/todo-adv.server)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Usage
+Live version, [link](https://mj-todo-client.herokuapp.com/).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Future developments/improvements
+* Alot of bug fixing
+* More extensive testing
+* Mobile version
+* More secure authentication
+* Add user pics/avatars.
+* User settings, where you can customize the look, for exampl backgroundimages
+* Ability to add more columns to a list
