@@ -66,6 +66,7 @@ export type ListsState = {
 export type NavbarProps = {
   isLoggedIn: boolean;
   setIsLoggedIn: (payload: boolean) => void;
+  setCookie: (payload: string) => void;
 };
 
 export type NavbarOwnProps = {

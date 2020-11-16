@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { setIsLoggedInA } from '../redux/actions';
+import { setCookieA, setIsLoggedInA } from '../redux/actions';
 import { NavbarProps, RootState, NavbarOwnProps } from '../types';
 import '../styles/Navbar.css';
 
@@ -14,6 +14,7 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
   const {
     isLoggedIn,
     setIsLoggedIn,
+    setCookie,
     filled,
     children,
   } = props;
@@ -22,6 +23,7 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
     fetch(`${url}/auth/logout`, { credentials: 'include' })
       .then(() => {
         setIsLoggedIn(false);
+        setCookie('');
       })
       .catch(() => null);
   };
@@ -56,6 +58,7 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
 const mapStateToProps = (state: RootState, ownProps: NavbarOwnProps) => ({
   isLoggedIn: state.isLoggedIn,
   filled: ownProps.filled,
+  setCookie: setCookieA,
 });
 
 export default connect(mapStateToProps, {
