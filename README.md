@@ -1,5 +1,5 @@
-# ChatApp
-A fullstack chat application using Socket.io, Node.js, Express, React, Redux, TypeScript
+# Todo App
+The client side of a fullstack todo application
 ## Table of contents
 * [Description](#description)
 * [Technologies used](#technologies-used)
@@ -32,5 +32,5 @@ Live version, [link](https://mj-todo-client.herokuapp.com/).
 * Mobile version
 * More secure authentication
 * Add user pics/avatars.
-* User settings, where you can customize the look, for exampl backgroundimages
+* User settings, where you can customize the look, for example background-images
 * Ability to add more columns to a list
