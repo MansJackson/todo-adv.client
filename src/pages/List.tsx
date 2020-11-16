@@ -158,74 +158,76 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   };
 
   return (
-    <div className="wrapper_dashboard">
+    <>
       <Navbar filled>
         {renderAvatars()}
       </Navbar>
-      <div className="list">
-        <header className="list_header">
-          <h1>{title}</h1>
-        </header>
-        <section className="list_body">
-          <div className="list-addItem" onClick={() => setItemModalOpen(true)}>+</div>
-          {items && items.length
-            ? items.map((el) => <ListItem key={el.id} item={el} listId={id} />)
-            : null}
-        </section>
-      </div>
-      <Modal isOpen={itemModalOpen} setOpen={setItemModalOpen}>
-        <form onSubmit={addItem}>
-          {/* Fixes material ui bug for some reason */}
-          <input autoComplete="false" style={{ visibility: 'hidden' }} />
-
-          <TextField
-            fullWidth
-            label="To Do"
-            variant="outlined"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-          />
-
-          <div className="space-2" />
-
-          <div className="confirm_buttons">
-            <Button type="button" color="secondary" onClick={() => setItemModalOpen(false)}>Exit</Button>
-            <Button type="submit" color="primary">Add</Button>
-          </div>
-        </form>
-      </Modal>
-      <Modal isOpen={editorModalOpen} setOpen={setEditorModalOpen}>
-        <form onSubmit={addEditor}>
-          {/* Fixes material ui bug for some reason */}
-          <input autoComplete="false" style={{ visibility: 'hidden' }} />
-
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-          />
-
-          <div className="space-2" />
-
-          <div className="confirm_buttons">
-            <Button type="button" color="secondary" onClick={() => setEditorModalOpen(false)}>Exit</Button>
-            <Button type="submit" color="primary">Add</Button>
-          </div>
-        </form>
-      </Modal>
-      <Modal isOpen={removeEditorModalOpen} setOpen={setRemoveEditorModalOpen}>
-        <div>
-          <p className="confirm_text">Are you sure you want to remove this user</p>
-          <div className="confirm_buttons">
-            <Button type="button" color="secondary" onClick={() => setRemoveEditorModalOpen(false)}>Cancel</Button>
-            <Button type="button" color="primary" onClick={removeEditor}>Confirm</Button>
-          </div>
+      <div className="wrapper_dashboard">
+        <div className="list">
+          <header className="list_header">
+            <h1>{title}</h1>
+          </header>
+          <section className="list_body">
+            <div className="list-addItem" onClick={() => setItemModalOpen(true)}>+</div>
+            {items && items.length
+              ? items.map((el) => <ListItem key={el.id} item={el} listId={id} />)
+              : null}
+          </section>
         </div>
-      </Modal>
-      {renderCursors()}
-    </div>
+        <Modal isOpen={itemModalOpen} setOpen={setItemModalOpen}>
+          <form onSubmit={addItem}>
+            {/* Fixes material ui bug for some reason */}
+            <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+            <TextField
+              fullWidth
+              label="To Do"
+              variant="outlined"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+            />
+
+            <div className="space-2" />
+
+            <div className="confirm_buttons">
+              <Button type="button" color="secondary" onClick={() => setItemModalOpen(false)}>Exit</Button>
+              <Button type="submit" color="primary">Add</Button>
+            </div>
+          </form>
+        </Modal>
+        <Modal isOpen={editorModalOpen} setOpen={setEditorModalOpen}>
+          <form onSubmit={addEditor}>
+            {/* Fixes material ui bug for some reason */}
+            <input autoComplete="false" style={{ visibility: 'hidden' }} />
+
+            <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+            />
+
+            <div className="space-2" />
+
+            <div className="confirm_buttons">
+              <Button type="button" color="secondary" onClick={() => setEditorModalOpen(false)}>Exit</Button>
+              <Button type="submit" color="primary">Add</Button>
+            </div>
+          </form>
+        </Modal>
+        <Modal isOpen={removeEditorModalOpen} setOpen={setRemoveEditorModalOpen}>
+          <div>
+            <p className="confirm_text">Are you sure you want to remove this user</p>
+            <div className="confirm_buttons">
+              <Button type="button" color="secondary" onClick={() => setRemoveEditorModalOpen(false)}>Cancel</Button>
+              <Button type="button" color="primary" onClick={removeEditor}>Confirm</Button>
+            </div>
+          </div>
+        </Modal>
+        {renderCursors()}
+      </div>
+    </>
   );
 };
 

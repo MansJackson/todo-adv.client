@@ -24,7 +24,7 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
 
   return (
     <div className="wrapper">
-      <Navbar />
+      <Navbar filled />
       <section className="form_body">
         <form className="login_form" onSubmit={handleSubmit}>
 

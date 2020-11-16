@@ -57,76 +57,78 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
   };
 
   return (
-    <div className="wrapper">
-      <Navbar />
-      <section className="form_body">
-        <form onSubmit={handleSubmit} autoComplete="off">
+    <>
+      <Navbar filled />
+      <div className="wrapper">
+        <section className="form_body">
+          <form onSubmit={handleSubmit} autoComplete="off">
 
-          {/* Fixes material ui bug for some reason */}
-          <input type="search" autoComplete="off" style={{ visibility: 'hidden' }} />
+            {/* Fixes material ui bug for some reason */}
+            <input type="search" autoComplete="off" style={{ visibility: 'hidden' }} />
 
-          <TextField
-            fullWidth
-            label="Name"
-            variant="outlined"
-            value={name}
-            autoComplete="off"
-            onChange={(e) => setName(e.target.value)}
-          />
+            <TextField
+              fullWidth
+              label="Name"
+              variant="outlined"
+              value={name}
+              autoComplete="off"
+              onChange={(e) => setName(e.target.value)}
+            />
 
-          <div className="space" />
+            <div className="space" />
 
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            value={email}
-            autoComplete="new-password"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+            <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              value={email}
+              autoComplete="new-password"
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <div className="space" />
+            <div className="space" />
 
-          <TextField
-            fullWidth
-            type="password"
-            label="Password"
-            variant="outlined"
-            value={password}
-            autoComplete="new-password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <TextField
+              fullWidth
+              type="password"
+              label="Password"
+              variant="outlined"
+              value={password}
+              autoComplete="new-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <div className="space" />
+            <div className="space" />
 
-          <TextField
-            fullWidth
-            type="password"
-            label="Confirm Password"
-            variant="outlined"
-            value={passwordConf}
-            autoComplete="new-password"
-            onChange={(e) => setPasswordConf(e.target.value)}
-          />
+            <TextField
+              fullWidth
+              type="password"
+              label="Confirm Password"
+              variant="outlined"
+              value={passwordConf}
+              autoComplete="new-password"
+              onChange={(e) => setPasswordConf(e.target.value)}
+            />
 
-          <div className="space-2" />
+            <div className="space-2" />
 
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Register
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Register
           </Button>
 
-          <div className="space-2" />
-          <hr />
-          <div className="space-2" />
+            <div className="space-2" />
+            <hr />
+            <div className="space-2" />
 
-          <p className="form_footer_text">
-            Already have an account?
+            <p className="form_footer_text">
+              Already have an account?
             {' '}
-            <Link to="/login" className="link_text">Log In</Link>
-          </p>
-        </form>
-      </section>
-    </div>
+              <Link to="/login" className="link_text">Log In</Link>
+            </p>
+          </form>
+        </section>
+      </div>
+    </>
   );
 };
 

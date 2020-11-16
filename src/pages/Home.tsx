@@ -6,18 +6,20 @@ import '../styles/Home.css';
 dotenv.config();
 
 const Home: React.FunctionComponent = (): JSX.Element => (
-  <div className="wrapper">
-    <Navbar />
-    <div className="home_body">
-      <h1 className="home_header">Welcome!</h1>
-      <p className="home_text">
-        This is an online application to create lists
-        <br />
-        and collaborate on them with your friends and family.
-      </p>
-      {process.env.SERVER_URL}
+  <>
+    <Navbar filled />
+    <div className="wrapper">
+      <div className="home_body">
+        <h1 className="home_header">Welcome!</h1>
+        <p className="home_text">
+          This is an online application to create lists
+          <br />
+          and collaborate on them with your friends and family.
+        </p>
+        {process.env.SERVER_URL}
+      </div>
     </div>
-  </div>
+  </>
 );
 
 export default Home;

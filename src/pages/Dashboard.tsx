@@ -50,47 +50,49 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
   }, []);
 
   return (
-    <div className="wrapper_dashboard">
+    <>
       <Navbar filled />
-      <section className="dashboard">
-        <h2 className="owned_title">My Lists</h2>
-        <div className="dashboard_owned">
-          {!owned || !owned.length
-            ? null
-            : owned.map((el) => <ListSummary key={el.id} data={el} owned />)}
-          <div className="dashboard_newBtn" onClick={() => setModalOpen(true)}>+</div>
-        </div>
-        <h2 className="shared_title">Shared With Me</h2>
-        <div className="dashboard_shared">
-          {!shared || !shared.length
-            ? <p>No lists abvailable</p>
-            : shared.map((el) => <ListSummary key={el.id} data={el} />)}
-        </div>
-      </section>
-      <Modal isOpen={modalOpen} setOpen={setModalOpen}>
-        <div>
-          <form onSubmit={(e) => addList(e)}>
-            {/* Fixes material ui bug for some reason */}
-            <input autoComplete="false" style={{ visibility: 'hidden' }} />
+      <div className="wrapper_dashboard">
+        <section className="dashboard">
+          <h2 className="owned_title">My Lists</h2>
+          <div className="dashboard_owned">
+            {!owned || !owned.length
+              ? null
+              : owned.map((el) => <ListSummary key={el.id} data={el} owned />)}
+            <div className="dashboard_newBtn" onClick={() => setModalOpen(true)}>+</div>
+          </div>
+          <h2 className="shared_title">Shared With Me</h2>
+          <div className="dashboard_shared">
+            {!shared || !shared.length
+              ? <p>No lists abvailable</p>
+              : shared.map((el) => <ListSummary key={el.id} data={el} />)}
+          </div>
+        </section>
+        <Modal isOpen={modalOpen} setOpen={setModalOpen}>
+          <div>
+            <form onSubmit={(e) => addList(e)}>
+              {/* Fixes material ui bug for some reason */}
+              <input autoComplete="false" style={{ visibility: 'hidden' }} />
 
-            <TextField
-              fullWidth
-              label="Title"
-              variant="outlined"
-              value={listTitle}
-              onChange={(e) => setListTitle(e.target.value)}
-            />
+              <TextField
+                fullWidth
+                label="Title"
+                variant="outlined"
+                value={listTitle}
+                onChange={(e) => setListTitle(e.target.value)}
+              />
 
-            <div className="space-2" />
+              <div className="space-2" />
 
-            <div className="confirm_buttons">
-              <Button type="button" color="secondary" onClick={() => setModalOpen(false)}>Exit</Button>
-              <Button type="submit" color="primary">Add</Button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-    </div>
+              <div className="confirm_buttons">
+                <Button type="button" color="secondary" onClick={() => setModalOpen(false)}>Exit</Button>
+                <Button type="submit" color="primary">Add</Button>
+              </div>
+            </form>
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 };
 
