@@ -42,7 +42,7 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
         setIsLoggedIn(false);
         setIsLoading(false);
       });
-  }, [setIsLoading, setIsLoggedIn]);
+  }, []);
 
   if (isLoading) {
     return <LoadingPage />;

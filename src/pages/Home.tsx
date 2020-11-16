@@ -1,9 +1,6 @@
 import React from 'react';
-import dotenv from 'dotenv';
 import Navbar from '../components/Navbar';
 import '../styles/Home.css';
-
-dotenv.config();
 
 const Home: React.FunctionComponent = (): JSX.Element => (
   <>
