@@ -2,7 +2,7 @@ import { Button, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { notifyA } from '../actions';
+import { notifyA } from '../redux/actions';
 import Navbar from '../components/Navbar';
 import { RegisterProps } from '../types';
 import isValidEmail from '../utils';
@@ -65,6 +65,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
+            helperText="name"
             label="Name"
             variant="outlined"
             value={name}
@@ -76,6 +77,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
+            helperText="email"
             label="Email"
             variant="outlined"
             value={email}
@@ -87,6 +89,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
+            helperText="password"
             type="password"
             label="Password"
             variant="outlined"
@@ -99,6 +102,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
+            helperText="passwordConf"
             type="password"
             label="Confirm Password"
             variant="outlined"

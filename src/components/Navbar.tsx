@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { setIsLoggedInA } from '../actions';
+import { setIsLoggedInA } from '../redux/actions';
 import { NavbarProps, RootState, NavbarOwnProps } from '../types';
 import '../styles/Navbar.css';
 
@@ -28,17 +28,17 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
       </div>
       {children}
       {isLoggedIn
-        ? <Button variant="contained" onClick={logOut}>Log Out</Button>
+        ? <Button name="logout" variant="contained" onClick={logOut}>Log Out</Button>
         : (
           <>
             <Link to="/login">
-              <Button variant="contained" color="primary">
+              <Button name="login" variant="contained" color="primary">
                 Log In
               </Button>
             </Link>
             <div className="space" />
             <Link to="/register">
-              <Button variant="outlined" color="primary">
+              <Button name="register" variant="outlined" color="primary">
                 Register
               </Button>
             </Link>

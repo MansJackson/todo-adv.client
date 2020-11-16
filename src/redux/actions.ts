@@ -11,7 +11,7 @@ import {
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
   SET_AM_I_OWNER,
-} from './types';
+} from '../types';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
   dispatch({

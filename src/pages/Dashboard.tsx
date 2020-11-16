@@ -4,7 +4,7 @@ import { Button, TextField } from '@material-ui/core';
 import {
   connectSocketA,
   getListsA, notifyA, postListA,
-} from '../actions';
+} from '../redux/actions';
 import ListSummary from '../components/ListSummary';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';

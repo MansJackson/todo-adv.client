@@ -14,7 +14,7 @@ import {
   SET_SOCKET,
   CLEAR_SOCKET,
   SET_AM_I_OWNER,
-} from './types';
+} from '../types';
 
 const defaultNotificationState = { text: '', show: false };
 const defaultListState = {

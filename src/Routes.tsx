@@ -8,7 +8,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import { notifyA, setIsLoggedInA } from './actions';
+import { notifyA, setIsLoggedInA } from './redux/actions';
 import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
 import Home from './pages/Home';

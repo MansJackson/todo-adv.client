@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { loginA, notifyA } from '../actions';
+import { loginA, notifyA } from '../redux/actions';
 import Navbar from '../components/Navbar';
 import { LoginProps } from '../types';
 import '../styles/Form.css';
@@ -32,6 +32,7 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
           <input autoComplete="false" style={{ visibility: 'hidden' }} />
 
           <TextField
+            helperText="email"
             fullWidth
             label="Email"
             variant="outlined"
@@ -42,6 +43,7 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
           <div className="space" />
 
           <TextField
+            helperText="password"
             type="password"
             fullWidth
             label="Password"
