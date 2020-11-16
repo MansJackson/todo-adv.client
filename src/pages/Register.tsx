@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import { RegisterProps } from '../types';
 import isValidEmail from '../utils';
 
+const url = process.env.SERVER_URL || 'http://localhost:8000';
+
 const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -29,7 +31,7 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
       notify('Passwords do not match');
       return;
     }
-    fetch('http://localhost:8000/auth/register', {
+    fetch(`${url}/auth/register`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({

@@ -13,6 +13,8 @@ import {
   SET_AM_I_OWNER,
 } from '../types';
 
+const url = process.env.SERVER_URL || 'http://localhost:8000';
+
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
   dispatch({
     type: SET_NOTIFICATION_TEXT,
@@ -38,7 +40,7 @@ export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void =
 };
 
 export const connectSocketA = () => (dispatch: Dispatch): void => {
-  const socket = io('http://localhost:8000', {
+  const socket = io(url, {
     transportOptions: {
       polling: {
         extraHeaders: {
@@ -78,7 +80,7 @@ export const closeSocketA = (socket: Socket) => (dispatch: Dispatch): void => {
 };
 
 export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
-  fetch('http://localhost:8000/api/lists', { credentials: 'include' })
+  fetch(`${url}/api/lists`, { credentials: 'include' })
     .then((res) => {
       if (res.status === 204) {
         cb(new Error('No data'), undefined);
@@ -107,7 +109,7 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
 };
 
 export const getListA = (id: string, cb: Callback) => (): void => {
-  fetch(`http://localhost:8000/api/lists/${id}`, { credentials: 'include' })
+  fetch(`${url}/api/lists/${id}`, { credentials: 'include' })
     .then((res) => {
       if (res.status === 200) return res.json();
       cb(new Error('Could not fetch list'), undefined);
@@ -122,7 +124,7 @@ export const getListA = (id: string, cb: Callback) => (): void => {
 };
 
 export const postListA = (title: string, cb: Callback) => (): void => {
-  fetch('http://localhost:8000/api/lists', {
+  fetch(`${url}/api/lists`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     credentials: 'include',
@@ -140,7 +142,7 @@ export const loginA = (
   password: string,
   cb: Callback,
 ) => (dispatch: Dispatch): void => {
-  fetch('http://localhost:8000/auth/login', {
+  fetch(`${url}/auth/login`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     credentials: 'include',

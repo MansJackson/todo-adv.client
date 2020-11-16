@@ -12,6 +12,8 @@ import { List, ListProps, RootState } from '../types';
 import NotFound from './NotFound';
 import '../styles/List.css';
 
+const url = process.env.SERVER_URL || 'http://localhost:8000';
+
 const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
 
@@ -31,7 +33,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:8000/api/me', { credentials: 'include' })
+    fetch(`${url}/api/me`, { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => { setMyId(data); })
       .catch(() => null);
@@ -116,7 +118,7 @@ const ListPage: React.FunctionComponent<ListProps> = (props): JSX.Element => {
     if (owner.connected && owner.id !== myId) {
       render.push(<Cursor key={owner.id} style={{ position: 'fixed', left: `${owner.mousePosition.x}px`, top: `${owner.mousePosition.y}px` }} className="color-1" />);
     }
-    return render;
+    return render.map((el) => el);
   };
 
   const renderAvatars = (): JSX.Element => {

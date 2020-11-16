@@ -13,6 +13,8 @@ import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
 import Home from './pages/Home';
 
+const url = process.env.SERVER_URL || 'http://localhost:8000';
+
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
     setIsLoggedIn, isLoggedIn, notification,
@@ -22,7 +24,7 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:8000/auth/valid_cookie', {
+    fetch(`${url}/auth/valid_cookie`, {
       credentials: 'include',
     })
       .then((res) => {
