@@ -13,7 +13,7 @@ import {
   SET_AM_I_OWNER,
 } from '../types';
 
-const url = 'https://mj-todo-server.herokuapp.com/';
+const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.herokuapp.com/' : 'http://localhost:8000';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
   dispatch({
