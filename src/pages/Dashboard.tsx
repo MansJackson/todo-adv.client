@@ -13,7 +13,7 @@ import '../styles/Dashboard.css';
 
 const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element => {
   const {
-    owned, shared, socket, getLists, postList, notify, connectSocket,
+    owned, shared, socket, cookie, getLists, postList, notify, connectSocket,
   } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,7 +38,7 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
     getLists((err) => {
       if (err) {
         notify(err.message);
-      } else connectSocket();
+      } else connectSocket(cookie);
     });
   }, []);
 
@@ -101,6 +101,7 @@ const mapStateToProps = (state: RootState) => ({
   owned: state.lists.owned,
   shared: state.lists.shared,
   socket: state.socket,
+  cookie: state.cookie,
 });
 
 export default connect(mapStateToProps, {

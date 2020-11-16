@@ -12,6 +12,7 @@ export const SET_SOCKET = 'SET_SOCKET';
 export const CLEAR_SOCKET = 'CLEAR_SOCKET';
 
 export const SET_AM_I_OWNER = 'SET_AM_I_OWNER';
+export const SET_COOKIE = 'SET_COOKIE';
 
 // Actions
 export type SocketAction = {
@@ -48,6 +49,7 @@ export type RootState = {
   lists: ListsState;
   socket: Socket;
   amIOwner: boolean;
+  cookie: string;
 };
 
 export type NotificationState = {
@@ -90,10 +92,11 @@ export type DashboardProps = {
   owned: List[];
   shared: List[];
   socket: Socket;
+  cookie: string;
   getLists: (cb: Callback) => void;
   postList: (title: string, cb: Callback) => void;
   notify: (message: string) => void;
-  connectSocket: () => void;
+  connectSocket: (cookie: string) => void;
 };
 
 export type ModalOwnProps = {

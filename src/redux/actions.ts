@@ -11,6 +11,7 @@ import {
   SET_OWNED_LISTS,
   SET_SHARED_LISTS,
   SET_AM_I_OWNER,
+  SET_COOKIE,
 } from '../types';
 
 const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.herokuapp.com' : 'http://localhost:8000';
@@ -39,11 +40,10 @@ export const setIsLoggedInA = (payload: boolean) => (dispatch: Dispatch): void =
   });
 };
 
-export const connectSocketA = () => (dispatch: Dispatch): void => {
+export const connectSocketA = (cookie: string) => (dispatch: Dispatch): void => {
   const socket = io(url, {
-    query: { token: document.cookie },
+    query: { token: `juid=${cookie}` },
   });
-  console.log(document.cookie);
   socket.on('notification', (message: string) => {
     dispatch({
       type: SET_NOTIFICATION_TEXT,
@@ -153,14 +153,22 @@ export const loginA = (
         return;
       }
       if (res.status === 200) {
-        dispatch({
-          type: SET_IS_LOGGED_IN,
-          payload: true,
-        });
-        cb(undefined, 'Success');
-        return;
+        res.json()
+          .then((data: { cookie: string }) => {
+            dispatch({
+              type: SET_COOKIE,
+              payload: data.cookie,
+            });
+            dispatch({
+              type: SET_IS_LOGGED_IN,
+              payload: true,
+            });
+            cb(undefined, 'Success');
+          })
+          .catch(() => null);
+      } else {
+        cb(new Error('Internal server error'), undefined);
       }
-      cb(new Error('Internal server error'), undefined);
     })
     .catch(() => {
       cb(new Error('Internal server error'), undefined);

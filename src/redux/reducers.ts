@@ -14,6 +14,7 @@ import {
   SET_SOCKET,
   CLEAR_SOCKET,
   SET_AM_I_OWNER,
+  SET_COOKIE,
 } from '../types';
 
 const defaultNotificationState = { text: '', show: false };
@@ -73,10 +74,19 @@ const amIOwnerreducer = (state = false, action: AmIOwnerAction) => {
   }
 };
 
+const cookieReducer = (state = '', action: { type: string, payload: string }) => {
+  switch (action.type) {
+    case SET_COOKIE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
 export default combineReducers({
   isLoggedIn: loggedInReducer,
   notification: notificationReducer,
   lists: listsReducer,
   socket: socketReducer,
   amIOwner: amIOwnerreducer,
+  cookie: cookieReducer,
 });
