@@ -5,7 +5,7 @@
   width        : 100%;
   padding      : 1rem;
   top          : 0;
-  margin-bottom: 1rem;
+  z-index      : 10000;
 }
 
 .link_home {

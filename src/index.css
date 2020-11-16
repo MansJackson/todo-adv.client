@@ -1,11 +1,11 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
+  margin                 : 0;
+  padding                : 0;
+  box-sizing             : border-box;
+  font-family            : 'Roboto', sans-serif;
+  -webkit-font-smoothing : antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-decoration: none;
+  text-decoration        : none;
 }
 
 .show {
@@ -17,33 +17,34 @@
 }
 
 .wrapper {
-  width: 100vw;
-  height: 100vh;
-  background: url('./images/background2.jpg');
+  width                : 100vw;
+  height               : 100vh;
+  background           : url('./images/background2.jpg');
   background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  color: Black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  background-size      : cover;
+  background-position  : center;
+  color                : Black;
+  display              : flex;
+  justify-content      : center;
+  align-items          : center;
+  padding-left         : 2rem;
+  padding-right        : 2rem;
+  margin-top           : 2rem;
 }
 
 .wrapper_dashboard {
-  width: 100vw;
-  min-height: 100vh;
-  background: url('./images/background2.jpg');
+  width                : 100vw;
+  min-height           : 100vh;
+  background           : url('./images/background2.jpg');
   background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  color: Black;
-  padding-top: 4rem;
-  display: flex;
-  align-items: baseline;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  background-size      : cover;
+  background-position  : center;
+  color                : Black;
+  padding-top          : 4rem;
+  display              : flex;
+  align-items          : baseline;
+  padding-left         : 2rem;
+  padding-right        : 2rem;
 }
 
 .space {
@@ -55,18 +56,18 @@
 }
 
 .notification {
-  position: fixed;
-  padding: 1rem;
-  border-radius: .5rem;
+  position        : fixed;
+  padding         : 1rem;
+  border-radius   : .5rem;
   background-color: rgb(255, 135, 131);
-  top: .5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all .3s linear;
+  top             : .5rem;
+  left            : 50%;
+  transform       : translateX(-50%);
+  transition      : all .3s linear;
 }
 
 .clickable {
-  cursor: pointer;
+  cursor    : pointer;
   transition: all .2s ease-in-out;
 }
 

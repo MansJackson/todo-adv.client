@@ -77,7 +77,7 @@ const amIOwnerreducer = (state = false, action: AmIOwnerAction) => {
 const cookieReducer = (state = '', action: { type: string, payload: string }) => {
   switch (action.type) {
     case SET_COOKIE:
-      return action.payload;
+      return action.payload || state;
     default:
       return state;
   }
