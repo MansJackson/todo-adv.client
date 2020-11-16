@@ -8,7 +8,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import { notifyA, setIsLoggedInA } from './redux/actions';
+import { notifyA, setCookieA, setIsLoggedInA } from './redux/actions';
 import LoadingPage from './pages/LoadingPage';
 import List from './pages/List';
 import Home from './pages/Home';
@@ -17,7 +17,7 @@ const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.hero
 
 const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
   const {
-    setIsLoggedIn, isLoggedIn, notification,
+    setIsLoggedIn, setCookie, isLoggedIn, notification,
   } = props;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,12 @@ const Routes: React.FunctionComponent<RouteProps> = (props): JSX.Element => {
     })
       .then((res) => {
         if (res.status === 200) {
-          setIsLoggedIn(true);
+          res.json()
+            .then((data: {cookie: string}) => {
+              setCookie(data.cookie);
+              setIsLoggedIn(true);
+            })
+            .catch(() => null);
         } else setIsLoggedIn(false);
         setIsLoading(false);
       })
@@ -76,4 +81,5 @@ const mapStateToProps = (state: RootState) => ({
 export default connect(mapStateToProps, {
   setIsLoggedIn: setIsLoggedInA,
   notify: notifyA,
+  setCookie: setCookieA,
 })(Routes);

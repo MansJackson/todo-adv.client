@@ -83,10 +83,14 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
       }
       return res.json();
     })
-    .then((data: { owned: List[], shared: List[] } | false) => {
+    .then((data: { owned: List[], shared: List[], cookie: string } | false) => {
       if (!data) {
         cb(new Error('no data'), undefined);
       } else {
+        dispatch({
+          type: SET_COOKIE,
+          payload: data.cookie,
+        });
         dispatch({
           type: SET_OWNED_LISTS,
           owned: data.owned,
@@ -103,15 +107,21 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
     });
 };
 
-export const getListA = (id: string, cb: Callback) => (): void => {
+export const getListA = (id: string, cb: Callback) => (dispatch: Dispatch): void => {
   fetch(`${url}/api/lists/${id}`, { credentials: 'include' })
     .then((res) => {
       if (res.status === 200) return res.json();
       cb(new Error('Could not fetch list'), undefined);
       return undefined;
     })
-    .then((data: { list: List } | undefined) => {
-      if (data) cb(undefined, data.list);
+    .then((data: { list: List, cookie: string } | undefined) => {
+      if (data) {
+        dispatch({
+          type: SET_COOKIE,
+          payload: data.cookie,
+        });
+        cb(undefined, data.list);
+      }
     })
     .catch((err) => {
       cb(err, undefined);
@@ -155,7 +165,6 @@ export const loginA = (
       if (res.status === 200) {
         res.json()
           .then((data: { cookie: string }) => {
-            window.localStorage.setItem('auth', data.cookie);
             dispatch({
               type: SET_COOKIE,
               payload: data.cookie,
@@ -179,6 +188,13 @@ export const loginA = (
 export const setAmIOwnerA = (payload: boolean) => (dispatch: Dispatch): void => {
   dispatch({
     type: SET_AM_I_OWNER,
+    payload,
+  });
+};
+
+export const setCookieA = (payload: string) => (dispatch: Dispatch): void => {
+  dispatch({
+    type: SET_COOKIE,
     payload,
   });
 };

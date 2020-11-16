@@ -86,6 +86,7 @@ export type RouteProps = {
   notification: NotificationState;
   setIsLoggedIn: (payload: boolean) => void;
   notify: (message: string) => void;
+  setCookie: (payload: string) => void;
 };
 
 export type DashboardProps = {

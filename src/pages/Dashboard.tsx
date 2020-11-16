@@ -21,7 +21,10 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
 
   const addList = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!listTitle || listTitle === '') return; // Can not be empty
+    if (!listTitle || listTitle === '') {
+      notify('Field can not be empty');
+      return;
+    }
     postList(listTitle, (err, data) => {
       if (err) notify('Something went wrong trying to add list');
       if (data) {
@@ -39,8 +42,9 @@ const Dashboard: React.FunctionComponent<DashboardProps> = (props): JSX.Element 
       if (err) {
         notify(err.message);
       } else {
-        const auth = window.localStorage.getItem('auth') || cookie;
-        connectSocket(auth);
+        setTimeout(() => {
+          connectSocket(cookie);
+        }, 50);
       }
     });
   }, []);

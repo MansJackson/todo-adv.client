@@ -18,7 +18,9 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
 
   const logOut = () => {
     document.cookie = 'juid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    window.localStorage.removeItem('auth');
     setIsLoggedIn(false);
+    window.location.href = '/';
   };
 
   return (

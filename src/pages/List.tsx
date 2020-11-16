@@ -4,7 +4,9 @@ import Cursor from '@material-ui/icons/TouchApp';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getListA, notifyA, setAmIOwnerA } from '../redux/actions';
+import {
+  getListA, notifyA, setAmIOwnerA,
+} from '../redux/actions';
 import ListItem from '../components/ListItem';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar';
