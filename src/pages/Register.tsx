@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import { RegisterProps } from '../types';
 import isValidEmail from '../utils';
 
-const url = process.env.REACT_APP_SERVER_URL || 'http://localhost:8000';
+const url = 'https://mj-todo-server.herokuapp.com/';
 
 const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element => {
   const [name, setName] = useState('');

@@ -13,7 +13,7 @@ import {
   SET_AM_I_OWNER,
 } from '../types';
 
-const url = process.env.REACT_APP_SERVER_URL || 'http://localhost:8000';
+const url = 'https://mj-todo-server.herokuapp.com/';
 
 export const notifyA = (message: string) => (dispatch: Dispatch): void => {
   dispatch({
