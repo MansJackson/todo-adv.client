@@ -67,7 +67,6 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
-            helperText="name"
             label="Name"
             variant="outlined"
             value={name}
@@ -79,7 +78,6 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
-            helperText="email"
             label="Email"
             variant="outlined"
             value={email}
@@ -91,7 +89,6 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
-            helperText="password"
             type="password"
             label="Password"
             variant="outlined"
@@ -104,7 +101,6 @@ const Register: React.FunctionComponent<RegisterProps> = (props): JSX.Element =>
 
           <TextField
             fullWidth
-            helperText="passwordConf"
             type="password"
             label="Confirm Password"
             variant="outlined"
