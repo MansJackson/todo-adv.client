@@ -23,51 +23,53 @@ const Login: React.FunctionComponent<LoginProps> = (props): JSX.Element => {
   };
 
   return (
-    <div className="wrapper">
+    <>
       <Navbar filled />
-      <section className="form_body">
-        <form className="login_form" onSubmit={handleSubmit}>
+      <div className="wrapper">
+        <section className="form_body">
+          <form className="login_form" onSubmit={handleSubmit}>
 
-          {/* Fixes material ui bug for some reason */}
-          <input autoComplete="false" style={{ visibility: 'hidden' }} />
+            {/* Fixes material ui bug for some reason */}
+            <input autoComplete="false" style={{ visibility: 'hidden' }} />
 
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+            <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <div className="space" />
+            <div className="space" />
 
-          <TextField
-            type="password"
-            fullWidth
-            label="Password"
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <TextField
+              type="password"
+              fullWidth
+              label="Password"
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <div className="space-2" />
+            <div className="space-2" />
 
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Log In
-          </Button>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Log In
+            </Button>
 
-          <div className="space-2" />
-          <hr />
-          <div className="space-2" />
+            <div className="space-2" />
+            <hr />
+            <div className="space-2" />
 
-          <p className="form_footer_text">
-            Don't have an account?
-            {' '}
-            <Link to="/register" className="link_text">Register</Link>
-          </p>
-        </form>
-      </section>
-    </div>
+            <p className="form_footer_text">
+              Don't have an account?
+              {' '}
+              <Link to="/register" className="link_text">Register</Link>
+            </p>
+          </form>
+        </section>
+      </div>
+    </>
   );
 };
 

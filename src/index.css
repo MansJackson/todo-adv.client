@@ -27,9 +27,14 @@
   display              : flex;
   justify-content      : center;
   align-items          : center;
-  padding-left         : 2rem;
-  padding-right        : 2rem;
-  margin-top           : 2rem;
+  padding-left         : 1rem;
+  padding-right        : 1rem;
+}
+
+@media all and (max-width: 500px) {
+  .wrapper {
+    margin-top: 2rem;
+  }
 }
 
 .wrapper_dashboard {
@@ -43,8 +48,8 @@
   padding-top          : 4rem;
   display              : flex;
   align-items          : baseline;
-  padding-left         : 2rem;
-  padding-right        : 2rem;
+  padding-left         : 1rem;
+  padding-right        : 1rem;
 }
 
 .space {
@@ -64,6 +69,7 @@
   left            : 50%;
   transform       : translateX(-50%);
   transition      : all .3s linear;
+  z-index         : 20000
 }
 
 .clickable {

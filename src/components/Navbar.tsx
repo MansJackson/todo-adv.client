@@ -6,6 +6,8 @@ import { setIsLoggedInA } from '../redux/actions';
 import { NavbarProps, RootState, NavbarOwnProps } from '../types';
 import '../styles/Navbar.css';
 
+const url = process.env.NODE_ENV === 'production' ? 'https://mj-todo-server.herokuapp.com' : 'http://localhost:8000';
+
 const Navbar: React.FunctionComponent<
 NavbarProps & NavbarOwnProps & { children?: JSX.Element }
 > = (props): JSX.Element => {
@@ -17,10 +19,12 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
   } = props;
 
   const logOut = () => {
-    document.cookie = 'juid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
-    window.localStorage.removeItem('auth');
-    setIsLoggedIn(false);
-    window.location.href = '/';
+    fetch(`${url}/auth/logout`, { credentials: 'include' })
+      .then(() => {
+        setIsLoggedIn(false);
+        window.location.href = '/';
+      })
+      .catch(() => null);
   };
 
   return (
