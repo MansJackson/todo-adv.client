@@ -27,10 +27,9 @@ This is a coding test for Ubiquiti. It is a webapplication where you are able to
 Live version, [link](https://mj-todo-client.herokuapp.com/).
 
 ## Future developments/improvements
-* Alot of bug fixing
 * More extensive testing
-* Mobile version
+* Mobile version (Authentication doesn't work for mobile)
 * More secure authentication
-* Add user pics/avatars.
-* User settings, where you can customize the look, for example background-images
+* Add profile pictures
+* Settings, where you can customize the look, for example background-images
 * Ability to add more columns to a list
