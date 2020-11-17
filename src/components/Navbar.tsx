@@ -58,9 +58,9 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
 const mapStateToProps = (state: RootState, ownProps: NavbarOwnProps) => ({
   isLoggedIn: state.isLoggedIn,
   filled: ownProps.filled,
-  setCookie: setCookieA,
 });
 
 export default connect(mapStateToProps, {
   setIsLoggedIn: setIsLoggedInA,
+  setCookie: setCookieA,
 })(Navbar);
