@@ -86,6 +86,12 @@ export const getListsA = (cb: Callback) => (dispatch: Dispatch): void => {
     .then((data: { owned: List[], shared: List[], cookie: string } | false) => {
       if (!data) {
         cb(new Error('no data'), undefined);
+      } else if (!data.cookie) {
+        dispatch({
+          type: SET_IS_LOGGED_IN,
+          payload: false,
+        });
+        cb(new Error('It seems your browser does not allow cross site cookies to be set'), undefined);
       } else {
         dispatch({
           type: SET_COOKIE,
@@ -165,19 +171,15 @@ export const loginA = (
       if (res.status === 200) {
         res.json()
           .then((data: { cookie: string }) => {
-            if (data.cookie) {
-              dispatch({
-                type: SET_COOKIE,
-                payload: data.cookie,
-              });
-              dispatch({
-                type: SET_IS_LOGGED_IN,
-                payload: true,
-              });
-              cb(undefined, 'Success');
-            } else {
-              cb(new Error('Your browser doesnt allow cross site cookies'), undefined);
-            }
+            dispatch({
+              type: SET_COOKIE,
+              payload: data.cookie,
+            });
+            dispatch({
+              type: SET_IS_LOGGED_IN,
+              payload: true,
+            });
+            cb(undefined, 'Success');
           })
           .catch(() => null);
       } else {
