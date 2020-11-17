@@ -165,15 +165,19 @@ export const loginA = (
       if (res.status === 200) {
         res.json()
           .then((data: { cookie: string }) => {
-            dispatch({
-              type: SET_COOKIE,
-              payload: data.cookie,
-            });
-            dispatch({
-              type: SET_IS_LOGGED_IN,
-              payload: true,
-            });
-            cb(undefined, 'Success');
+            if (data.cookie) {
+              dispatch({
+                type: SET_COOKIE,
+                payload: data.cookie,
+              });
+              dispatch({
+                type: SET_IS_LOGGED_IN,
+                payload: true,
+              });
+              cb(undefined, 'Success');
+            } else {
+              cb(new Error('Your browser doesnt allow cross site cookies'), undefined);
+            }
           })
           .catch(() => null);
       } else {
