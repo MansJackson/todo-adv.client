@@ -22,8 +22,8 @@ NavbarProps & NavbarOwnProps & { children?: JSX.Element }
   const logOut = () => {
     fetch(`${url}/auth/logout`, { credentials: 'include' })
       .then(() => {
-        setIsLoggedIn(false);
         setCookie('');
+        setIsLoggedIn(false);
       })
       .catch(() => null);
   };
